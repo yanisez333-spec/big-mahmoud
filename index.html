@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big Mahmoud — L'Art du Café</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================================
+           COLLE ICI TOUT LE CSS (STYLE) QUE CLAUDE T'A DONNÉ
+           ============================================================ */
+        
+        /* ... Ton CSS (Reset, Cursor, Hero, Sections, Gold effects) ... */
+        
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #0a0a0a; color: #fff; overflow-x: hidden; }
+        /* (Assure-toi de bien copier tout le bloc <style> de Claude ici) */
+    </style>
+</head>
+<body>
+
+    <script>
+        const cur = document.getElementById('cursor');
+        const ring = document.getElementById('cursor-ring');
+        let mx = 0, my = 0, rx = 0, ry = 0;
+
+        document.addEventListener('mousemove', e => {
+            mx = e.clientX; my = e.clientY;
+            if(cur) { cur.style.left = mx + 'px'; cur.style.top = my + 'px'; }
+        });
+
+        function animateRing() {
+            rx += (mx - rx) * 0.12;
+            ry += (my - ry) * 0.12;
+            if(ring) { ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; }
+            requestAnimationFrame(animateRing);
+        }
+        animateRing();
+
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if(header) header.classList.toggle('scrolled', window.scrollY > 60);
+        });
+    </script>
+
+
+    <script type="module">
+        // Tes clés Firebase officielles
+        const firebaseConfig = {
+            apiKey: "AIzaSyBxAIJaqfigz9X2vZ_x8fJuK2RD8wgQ9-A",
+            authDomain: "bigmahmoud-b5659.firebaseapp.com",
+            projectId: "bigmahmoud-b5659",
+            storageBucket: "bigmahmoud-b5659.firebasestorage.app",
+            messagingSenderId: "88480505979",
+            appId: "1:88480505979:web:41e35cc41dbfa1a834c2de"
+        };
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+        // Initialisation
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const contentRef = doc(db, "public_content", "home");
+
+        // DOM Refs
+        const heroTitleEl = document.querySelector('.hero-title');
+        const heroSubtitleEl = document.querySelector('.hero-subtitle');
+        const statNumbers = document.querySelectorAll('.stat-number');
+        const carteCards = document.querySelectorAll('.carte-card');
+        const heroPhotoContainer = document.querySelector('.hero-photo-placeholder');
+
+        // Fonction de mise à jour fluide
+        function safeUpdate(fn) {
+            if ('requestIdleCallback' in window) { requestIdleCallback(fn, { timeout: 200 }); }
+            else { setTimeout(fn, 0); }
+        }
+
+        // Écoute en temps réel de la base de données
+        onSnapshot(contentRef, (snap) => {
+            if (!snap.exists()) {
+                console.log("⚠️ Document 'public_content/home' introuvable dans Firestore.");
+                return;
+            }
+
+            const data = snap.data();
+
+            safeUpdate(() => {
+                // 1. Mise à jour du Titre Hero
+                if (heroTitleEl && (data.heroTitleMain || data.heroTitleGold)) {
+                    heroTitleEl.innerHTML = `${data.heroTitleMain || "L'Art du Café,"}<br><em class="hero-title-gold">${data.heroTitleGold || "Redéfini."}</em>`;
+                }
+
+                // 2. Mise à jour du Sous-titre
+                if (heroSubtitleEl && data.heroSubtitle) {
+                    heroSubtitleEl.textContent = data.heroSubtitle;
+                }
+
+                // 3. Mise à jour des Stats (Boucle)
+                if (Array.isArray(data.stats)) {
+                    data.stats.forEach((s, i) => {
+                        if (statNumbers[i]) statNumbers[i].textContent = s.value;
+                    });
+                }
+
+                // 4. Mise à jour de la Carte (Menu)
+                if (Array.isArray(data.carteItems)) {
+                    data.carteItems.forEach((item, i) => {
+                        if (carteCards[i]) {
+                            const title = carteCards[i].querySelector('.carte-card-title');
+                            const body = carteCards[i].querySelector('.carte-card-body');
+                            if (title) title.textContent = item.title;
+                            if (body) body.textContent = item.body;
+                        }
+                    });
+                }
+
+                // 5. Mise à jour de l'image de fond
+                if (data.heroImageUrl && heroPhotoContainer) {
+                    heroPhotoContainer.style.backgroundImage = `url('${data.heroImageUrl}')`;
+                    heroPhotoContainer.style.backgroundSize = 'cover';
+                    heroPhotoContainer.style.backgroundPosition = 'center';
+                }
+            });
+
+            console.log("✅ Données Big Mahmoud synchronisées.");
+        }, (error) => {
+            console.error("❌ Erreur Firebase :", error);
+        });
+    </script>
+</body>
+</html>
