@@ -1,13 +1,88 @@
 rules_version = '2';
 
 service cloud.firestore {
-  match /databases/{database}/documents {
-    
-    // Dossier public : Tout le monde peut lire le contenu du site
-    match /public_content/{document} {
-      allow read: if true;
-      allow write: if false; // Personne ne peut modifier via le site public
-    }
-    
-  }
+  match /databases/{database}/documents {
+
+    // ======================
+    // 🔐 ADMIN (Custom Claim)
+    // ======================
+    function isAdmin() {
+      return request.auth != null
+             && request.auth.token.admin == true;
+    }
+
+    // ======================
+    // 🔎 VALIDATIONS
+    // ======================
+    function isValidString(field, maxLen) {
+      return field is string
+        && field.size() > 0
+        && field.size() <= maxLen;
+    }
+
+    function isValidOptionalString(field, maxLen) {
+      return !(field in request.resource.data)
+        || (field is string && field.size() > 0 && field.size() <= maxLen);
+    }
+
+    function isValidImageUrl(url) {
+      return url is string
+        && url.size() <= 500
+        && url.matches('^https://(firebasestorage\\.googleapis\\.com|images\\.unsplash\\.com)/.*$');
+    }
+
+    // ======================
+    // 📡 PUBLIC CONTENT
+    // ======================
+    match /public_content/{document} {
+
+      // 🟢 Lecture publique
+      allow read: if true;
+
+      // 🔒 CREATE (strict)
+      allow create: if isAdmin()
+        && request.resource.data.keys().hasOnly([
+          "heroTitleMain",
+          "heroTitleGold",
+          "heroSubtitle",
+          "heroImageUrl"
+        ])
+        && isValidString(request.resource.data.heroTitleMain, 200)
+        && isValidString(request.resource.data.heroTitleGold, 100)
+        && isValidString(request.resource.data.heroSubtitle, 300)
+        && isValidImageUrl(request.resource.data.heroImageUrl);
+
+      // 🔒 UPDATE (anti contournement)
+      allow update: if isAdmin()
+        // 🔥 empêche suppression de champs
+        && request.resource.data.keys().hasAll(resource.data.keys())
+
+        // 🔥 limite les champs modifiables
+        && request.resource.data.diff(resource.data).changedKeys().hasOnly([
+          "heroTitleMain",
+          "heroTitleGold",
+          "heroSubtitle",
+          "heroImageUrl"
+        ])
+
+        // 🔥 validations
+        && isValidOptionalString(request.resource.data.heroTitleMain, 200)
+        && isValidOptionalString(request.resource.data.heroTitleGold, 100)
+        && isValidOptionalString(request.resource.data.heroSubtitle, 300)
+        && (
+          !("heroImageUrl" in request.resource.data)
+          || isValidImageUrl(request.resource.data.heroImageUrl)
+        );
+
+      // 🚫 DELETE BLOQUÉ
+      allow delete: if false;
+    }
+
+    // ======================
+    // 🚫 VERROU GLOBAL
+    // ======================
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
 }
