@@ -1,134 +1,281 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Big Mahmoud — L'Art du Café</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Big Mahmoud — L'Art du Café à El Jem</title>
 
-    <style>
-        /* ============================================================
-           COLLE ICI TOUT LE CSS (STYLE) QUE CLAUDE T'A DONNÉ
-           ============================================================ */
-        
-        /* ... Ton CSS (Reset, Cursor, Hero, Sections, Gold effects) ... */
-        
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #0a0a0a; color: #fff; overflow-x: hidden; }
-        /* (Assure-toi de bien copier tout le bloc <style> de Claude ici) */
-    </style>
+<meta http-equiv="Content-Security-Policy" content="
+default-src 'self';
+script-src 'self' https://www.gstatic.com https://www.googletagmanager.com;
+style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
+font-src https://fonts.gstatic.com;
+img-src 'self' https://firebasestorage.googleapis.com https://images.unsplash.com data:;
+connect-src https://firestore.googleapis.com https://www.googleapis.com https://securetoken.googleapis.com https://identitytoolkit.googleapis.com;
+object-src 'none';
+base-uri 'none';
+frame-ancestors 'none';
+">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Cormorant+Garamond:ital,wght@0,300;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+:root { --gold:#d4af37; }
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:#000;
+  color:#fff;
+  font-family:'Montserrat',sans-serif;
+  overflow-x:hidden;
+}
+
+/* HERO */
+.hero-section{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.hero-photo-placeholder{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  opacity:.4;
+  transform:scale(1.1);
+  transition:transform 0.2s linear;
+}
+
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.5rem,8vw,5.5rem);
+}
+
+.hero-title-gold{color:var(--gold);font-style:italic}
+
+/* SCROLL REVEAL */
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:all 1s ease;
+}
+.reveal.visible{
+  opacity:1;
+  transform:none;
+}
+
+/* CINEMA MODE */
+.cinema::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  backdrop-filter:blur(8px);
+  background:rgba(0,0,0,0.3);
+  pointer-events:none;
+}
+
+/* LOW PERF */
+.no-anim *{
+  animation:none!important;
+  transition:none!important;
+}
+
+/* CURSOR */
+#cursor{
+  position:fixed;
+  width:12px;height:12px;
+  background:var(--gold);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:9999;
+  will-change:transform;
+}
+
+#firebase-error{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  color:#ff4d4d;
+  font-size:12px;
+  display:none;
+}
+</style>
 </head>
+
 <body>
 
-    <script>
-        const cur = document.getElementById('cursor');
-        const ring = document.getElementById('cursor-ring');
-        let mx = 0, my = 0, rx = 0, ry = 0;
+<div id="cursor"></div>
+<div id="firebase-error"></div>
 
-        document.addEventListener('mousemove', e => {
-            mx = e.clientX; my = e.clientY;
-            if(cur) { cur.style.left = mx + 'px'; cur.style.top = my + 'px'; }
-        });
+<section class="hero-section reveal">
+  <div class="hero-photo-placeholder" id="bg"></div>
+  <div>
+    <h1 class="hero-title" id="title">Chargement...</h1>
+    <p id="subtitle">Connexion...</p>
+  </div>
+</section>
 
-        function animateRing() {
-            rx += (mx - rx) * 0.12;
-            ry += (my - ry) * 0.12;
-            if(ring) { ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; }
-            requestAnimationFrame(animateRing);
-        }
-        animateRing();
+<!-- 🧠 PERFORMANCE + FPS AI -->
+<script>
+function getPerf(){
+  const cpu=navigator.hardwareConcurrency||2;
+  const ram=navigator.deviceMemory||2;
+  if(cpu<=2||ram<=2) return "LOW";
+  if(cpu<=4||ram<=4) return "MEDIUM";
+  return "HIGH";
+}
 
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if(header) header.classList.toggle('scrolled', window.scrollY > 60);
-        });
-    </script>
+let PERF=getPerf();
 
+// 🧠 FPS MONITOR
+let last=performance.now(), frames=0;
 
-    <script type="module">
-        // Tes clés Firebase officielles
-        const firebaseConfig = {
-            apiKey: "AIzaSyBxAIJaqfigz9X2vZ_x8fJuK2RD8wgQ9-A",
-            authDomain: "bigmahmoud-b5659.firebaseapp.com",
-            projectId: "bigmahmoud-b5659",
-            storageBucket: "bigmahmoud-b5659.firebasestorage.app",
-            messagingSenderId: "88480505979",
-            appId: "1:88480505979:web:41e35cc41dbfa1a834c2de"
-        };
+function monitorFPS(){
+  frames++;
+  const now=performance.now();
 
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-        import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+  if(now-last>=1000){
+    const fps=frames;
+    frames=0;
+    last=now;
 
-        // Initialisation
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const contentRef = doc(db, "public_content", "home");
+    if(fps<30 && PERF==="HIGH"){
+      PERF="MEDIUM";
+      document.body.classList.add("no-anim");
+    }
+  }
 
-        // DOM Refs
-        const heroTitleEl = document.querySelector('.hero-title');
-        const heroSubtitleEl = document.querySelector('.hero-subtitle');
-        const statNumbers = document.querySelectorAll('.stat-number');
-        const carteCards = document.querySelectorAll('.carte-card');
-        const heroPhotoContainer = document.querySelector('.hero-photo-placeholder');
+  requestAnimationFrame(monitorFPS);
+}
+monitorFPS();
 
-        // Fonction de mise à jour fluide
-        function safeUpdate(fn) {
-            if ('requestIdleCallback' in window) { requestIdleCallback(fn, { timeout: 200 }); }
-            else { setTimeout(fn, 0); }
-        }
+// LOW PERF MODE
+if(PERF==="LOW"){
+  document.body.classList.add("no-anim");
+}
+</script>
 
-        // Écoute en temps réel de la base de données
-        onSnapshot(contentRef, (snap) => {
-            if (!snap.exists()) {
-                console.log("⚠️ Document 'public_content/home' introuvable dans Firestore.");
-                return;
-            }
+<!-- 🎯 CURSOR -->
+<script>
+const cur=document.getElementById('cursor');
 
-            const data = snap.data();
+if(matchMedia("(pointer:fine)").matches){
+ let raf;
+ document.addEventListener('mousemove',e=>{
+  if(raf)return;
+  raf=requestAnimationFrame(()=>{
+   cur.style.transform=`translate3d(${e.clientX}px,${e.clientY}px,0)`;
+   raf=null;
+  });
+ });
+}else{
+ cur.style.display="none";
+}
+</script>
 
-            safeUpdate(() => {
-                // 1. Mise à jour du Titre Hero
-                if (heroTitleEl && (data.heroTitleMain || data.heroTitleGold)) {
-                    heroTitleEl.innerHTML = `${data.heroTitleMain || "L'Art du Café,"}<br><em class="hero-title-gold">${data.heroTitleGold || "Redéfini."}</em>`;
-                }
+<!-- 🎬 PARALLAX + SCROLL REVEAL -->
+<script>
+const bg=document.getElementById("bg");
 
-                // 2. Mise à jour du Sous-titre
-                if (heroSubtitleEl && data.heroSubtitle) {
-                    heroSubtitleEl.textContent = data.heroSubtitle;
-                }
+// PARALLAX
+window.addEventListener("scroll",()=>{
+  if(PERF==="HIGH"){
+    const y=window.scrollY;
+    bg.style.transform=`scale(1.1) translateY(${y*0.2}px)`;
+  }
+});
 
-                // 3. Mise à jour des Stats (Boucle)
-                if (Array.isArray(data.stats)) {
-                    data.stats.forEach((s, i) => {
-                        if (statNumbers[i]) statNumbers[i].textContent = s.value;
-                    });
-                }
+// REVEAL
+const obs=new IntersectionObserver(entries=>{
+ entries.forEach(e=>{
+  if(e.isIntersecting) e.target.classList.add("visible");
+ });
+});
+document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
 
-                // 4. Mise à jour de la Carte (Menu)
-                if (Array.isArray(data.carteItems)) {
-                    data.carteItems.forEach((item, i) => {
-                        if (carteCards[i]) {
-                            const title = carteCards[i].querySelector('.carte-card-title');
-                            const body = carteCards[i].querySelector('.carte-card-body');
-                            if (title) title.textContent = item.title;
-                            if (body) body.textContent = item.body;
-                        }
-                    });
-                }
+// CINEMA MODE
+if(PERF==="HIGH"){
+ document.body.classList.add("cinema");
+}
+</script>
 
-                // 5. Mise à jour de l'image de fond
-                if (data.heroImageUrl && heroPhotoContainer) {
-                    heroPhotoContainer.style.backgroundImage = `url('${data.heroImageUrl}')`;
-                    heroPhotoContainer.style.backgroundSize = 'cover';
-                    heroPhotoContainer.style.backgroundPosition = 'center';
-                }
-            });
+<!-- 🔥 FIREBASE SECURE -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.15.0/firebase-app.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.15.0/firebase-firestore.js";
 
-            console.log("✅ Données Big Mahmoud synchronisées.");
-        }, (error) => {
-            console.error("❌ Erreur Firebase :", error);
-        });
-    </script>
+const app=initializeApp({
+ apiKey:"AIzaSyBxAIJaqfigz9X2vZ_x8fJuK2RD8wgQ9-A",
+ authDomain:"bigmahmoud-b5659.firebaseapp.com",
+ projectId:"bigmahmoud-b5659"
+});
+
+const db=getFirestore(app);
+
+// 🔒 CLEAN
+const clean=s=>typeof s==="string"
+ ?s.replace(/[\u0000-\u001F\u200B-\u200D]/g,"").slice(0,120)
+ :"";
+
+const safeImg=u=>{
+ try{
+  const url=new URL(u);
+  return url.protocol==="https:" &&
+  ["firebasestorage.googleapis.com","images.unsplash.com"].includes(url.hostname);
+ }catch{return false;}
+};
+
+// LOAD
+async function load(){
+ const err=document.getElementById("firebase-error");
+
+ const timeout=setTimeout(()=>{
+  err.style.display="block";
+  err.textContent="⚠️ Réseau lent...";
+ },5000);
+
+ try{
+  const snap=await getDoc(doc(db,"public_content","home"));
+  clearTimeout(timeout);
+
+  if(!snap.exists()) throw 0;
+
+  const d=snap.data();
+
+  const title=document.getElementById("title");
+  title.textContent="";
+
+  const main=document.createTextNode(clean(d.heroTitleMain||"L'Art du Café,"));
+  const br=document.createElement("br");
+  const gold=document.createElement("em");
+
+  gold.className="hero-title-gold";
+  gold.textContent=clean(d.heroTitleGold||"Redéfini.");
+
+  title.append(main,br,gold);
+
+  document.getElementById("subtitle").textContent=clean(d.heroSubtitle,160);
+
+  const bg=document.getElementById("bg");
+
+  if(safeImg(d.heroImageUrl)){
+    bg.style.backgroundImage=`url("${d.heroImageUrl}")`;
+  }
+
+ }catch{
+  err.style.display="block";
+  err.textContent="⚠️ Erreur chargement";
+ }
+}
+
+load();
+</script>
+
 </body>
 </html>
