@@ -1,281 +1,174 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Big Mahmoud — L'Art du Café à El Jem</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://images.unsplash.com https://*.googleusercontent.com;">
 
-<meta http-equiv="Content-Security-Policy" content="
-default-src 'self';
-script-src 'self' https://www.gstatic.com https://www.googletagmanager.com;
-style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
-font-src https://fonts.gstatic.com;
-img-src 'self' https://firebasestorage.googleapis.com https://images.unsplash.com data:;
-connect-src https://firestore.googleapis.com https://www.googleapis.com https://securetoken.googleapis.com https://identitytoolkit.googleapis.com;
-object-src 'none';
-base-uri 'none';
-frame-ancestors 'none';
-">
+    <title>Big Mahmoud | L'Art du Café</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --black: #0A0A0A;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Cormorant+Garamond:ital,wght@0,300;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
 
-<style>
-:root { --gold:#d4af37; }
+        body {
+            background-color: var(--black);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
 
-*{margin:0;padding:0;box-sizing:border-box}
+        /* Curseur personnalisé */
+        #cursor-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+        }
 
-body{
-  background:#000;
-  color:#fff;
-  font-family:'Montserrat',sans-serif;
-  overflow-x:hidden;
-}
+        /* Section Hero */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 1s ease-in-out;
+            position: relative;
+        }
 
-/* HERO */
-.hero-section{
-  height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-}
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+        }
 
-.hero-photo-placeholder{
-  position:absolute;
-  inset:0;
-  background-size:cover;
-  background-position:center;
-  opacity:.4;
-  transform:scale(1.1);
-  transition:transform 0.2s linear;
-}
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
 
-.hero-title{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2.5rem,8vw,5.5rem);
-}
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
 
-.hero-title-gold{color:var(--gold);font-style:italic}
+        h1 span {
+            color: var(--gold);
+            display: block;
+        }
 
-/* SCROLL REVEAL */
-.reveal{
-  opacity:0;
-  transform:translateY(40px);
-  transition:all 1s ease;
-}
-.reveal.visible{
-  opacity:1;
-  transform:none;
-}
+        p {
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transition: opacity 1.5s ease-in;
+        }
 
-/* CINEMA MODE */
-.cinema::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  backdrop-filter:blur(8px);
-  background:rgba(0,0,0,0.3);
-  pointer-events:none;
-}
+        .visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
 
-/* LOW PERF */
-.no-anim *{
-  animation:none!important;
-  transition:none!important;
-}
-
-/* CURSOR */
-#cursor{
-  position:fixed;
-  width:12px;height:12px;
-  background:var(--gold);
-  border-radius:50%;
-  pointer-events:none;
-  z-index:9999;
-  will-change:transform;
-}
-
-#firebase-error{
-  position:fixed;
-  bottom:20px;
-  left:20px;
-  color:#ff4d4d;
-  font-size:12px;
-  display:none;
-}
-</style>
+        #loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--gold);
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+        }
+    </style>
 </head>
-
 <body>
 
-<div id="cursor"></div>
-<div id="firebase-error"></div>
+    <div id="cursor-dot"></div>
+    <div id="loading">CHARGEMENT...</div>
 
-<section class="hero-section reveal">
-  <div class="hero-photo-placeholder" id="bg"></div>
-  <div>
-    <h1 class="hero-title" id="title">Chargement...</h1>
-    <p id="subtitle">Connexion...</p>
-  </div>
-</section>
+    <section class="hero" id="hero-section">
+        <div class="hero-content">
+            <p id="hero-subtitle"></p>
+            <h1 id="hero-title">
+                <span id="title-main"></span>
+                <span id="title-gold" style="color: var(--gold);"></span>
+            </h1>
+        </div>
+    </section>
 
-<!-- 🧠 PERFORMANCE + FPS AI -->
-<script>
-function getPerf(){
-  const cpu=navigator.hardwareConcurrency||2;
-  const ram=navigator.deviceMemory||2;
-  if(cpu<=2||ram<=2) return "LOW";
-  if(cpu<=4||ram<=4) return "MEDIUM";
-  return "HIGH";
-}
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-let PERF=getPerf();
+        // CONFIGURATION (Vérifie bien ton ID de projet ici)
+        const firebaseConfig = {
+            projectId: "bigmahmoud-b5659",
+            authDomain: "bigmahmoud-b5659.firebaseapp.com"
+        };
 
-// 🧠 FPS MONITOR
-let last=performance.now(), frames=0;
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-function monitorFPS(){
-  frames++;
-  const now=performance.now();
+        // Récupération des données en temps réel
+        const unsub = onSnapshot(doc(db, "public_content", "home"), (doc) => {
+            if (doc.exists()) {
+                const data = doc.data();
+                
+                // Remplissage des textes
+                document.getElementById('title-main').textContent = data.heroTitleMain;
+                document.getElementById('title-gold').textContent = data.heroTitleGold;
+                document.getElementById('hero-subtitle').textContent = data.heroSubtitle;
+                
+                // Image de fond
+                if (data.heroImageUrl) {
+                    document.getElementById('hero-section').style.backgroundImage = `url('${data.heroImageUrl.trim()}')`;
+                }
 
-  if(now-last>=1000){
-    const fps=frames;
-    frames=0;
-    last=now;
+                // Animations de visibilité
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('hero-title').classList.add('visible');
+                document.querySelector('.hero-content p').classList.add('visible');
+            } else {
+                console.log("Document 'home' introuvable !");
+            }
+        });
 
-    if(fps<30 && PERF==="HIGH"){
-      PERF="MEDIUM";
-      document.body.classList.add("no-anim");
-    }
-  }
-
-  requestAnimationFrame(monitorFPS);
-}
-monitorFPS();
-
-// LOW PERF MODE
-if(PERF==="LOW"){
-  document.body.classList.add("no-anim");
-}
-</script>
-
-<!-- 🎯 CURSOR -->
-<script>
-const cur=document.getElementById('cursor');
-
-if(matchMedia("(pointer:fine)").matches){
- let raf;
- document.addEventListener('mousemove',e=>{
-  if(raf)return;
-  raf=requestAnimationFrame(()=>{
-   cur.style.transform=`translate3d(${e.clientX}px,${e.clientY}px,0)`;
-   raf=null;
-  });
- });
-}else{
- cur.style.display="none";
-}
-</script>
-
-<!-- 🎬 PARALLAX + SCROLL REVEAL -->
-<script>
-const bg=document.getElementById("bg");
-
-// PARALLAX
-window.addEventListener("scroll",()=>{
-  if(PERF==="HIGH"){
-    const y=window.scrollY;
-    bg.style.transform=`scale(1.1) translateY(${y*0.2}px)`;
-  }
-});
-
-// REVEAL
-const obs=new IntersectionObserver(entries=>{
- entries.forEach(e=>{
-  if(e.isIntersecting) e.target.classList.add("visible");
- });
-});
-document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
-
-// CINEMA MODE
-if(PERF==="HIGH"){
- document.body.classList.add("cinema");
-}
-</script>
-
-<!-- 🔥 FIREBASE SECURE -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.15.0/firebase-app.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.15.0/firebase-firestore.js";
-
-const app=initializeApp({
- apiKey:"AIzaSyBxAIJaqfigz9X2vZ_x8fJuK2RD8wgQ9-A",
- authDomain:"bigmahmoud-b5659.firebaseapp.com",
- projectId:"bigmahmoud-b5659"
-});
-
-const db=getFirestore(app);
-
-// 🔒 CLEAN
-const clean=s=>typeof s==="string"
- ?s.replace(/[\u0000-\u001F\u200B-\u200D]/g,"").slice(0,120)
- :"";
-
-const safeImg=u=>{
- try{
-  const url=new URL(u);
-  return url.protocol==="https:" &&
-  ["firebasestorage.googleapis.com","images.unsplash.com"].includes(url.hostname);
- }catch{return false;}
-};
-
-// LOAD
-async function load(){
- const err=document.getElementById("firebase-error");
-
- const timeout=setTimeout(()=>{
-  err.style.display="block";
-  err.textContent="⚠️ Réseau lent...";
- },5000);
-
- try{
-  const snap=await getDoc(doc(db,"public_content","home"));
-  clearTimeout(timeout);
-
-  if(!snap.exists()) throw 0;
-
-  const d=snap.data();
-
-  const title=document.getElementById("title");
-  title.textContent="";
-
-  const main=document.createTextNode(clean(d.heroTitleMain||"L'Art du Café,"));
-  const br=document.createElement("br");
-  const gold=document.createElement("em");
-
-  gold.className="hero-title-gold";
-  gold.textContent=clean(d.heroTitleGold||"Redéfini.");
-
-  title.append(main,br,gold);
-
-  document.getElementById("subtitle").textContent=clean(d.heroSubtitle,160);
-
-  const bg=document.getElementById("bg");
-
-  if(safeImg(d.heroImageUrl)){
-    bg.style.backgroundImage=`url("${d.heroImageUrl}")`;
-  }
-
- }catch{
-  err.style.display="block";
-  err.textContent="⚠️ Erreur chargement";
- }
-}
-
-load();
-</script>
-
+        // Gestion du curseur
+        const dot = document.getElementById('cursor-dot');
+        window.addEventListener('mousemove', (e) => {
+            dot.style.left = e.clientX + 'px';
+            dot.style.top = e.clientY + 'px';
+        });
+    </script>
 </body>
 </html>
