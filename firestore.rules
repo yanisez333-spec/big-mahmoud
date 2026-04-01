@@ -1,0 +1,13 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Dossier public : Tout le monde peut lire le contenu du site
+    match /public_content/{document} {
+      allow read: if true;
+      allow write: if false; // Personne ne peut modifier via le site public
+    }
+    
+  }
+}
