@@ -1,174 +1,285 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://images.unsplash.com https://*.googleusercontent.com;">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Big Mahmoud | L'Art du Café</title>
 
-    <title>Big Mahmoud | L'Art du Café</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --gold: #D4AF37;
-            --black: #0A0A0A;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            cursor: none;
-        }
+<style>
+/* ============================================================
+   RESET & CONFIGURATION
+============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            background-color: var(--black);
-            color: white;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
+:root {
+    --gold: #D4AF37;
+    --gold-l: #F0D060;
+    --text: #F5EDD8;
+    --muted: rgba(245,237,216,0.6);
+    --black: #050505;
+    --ff-display: 'Playfair Display', serif;
+    --ff-fine: 'Cormorant Garamond', serif;
+}
 
-        /* Curseur personnalisé */
-        #cursor-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--gold);
-            position: fixed;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.1s ease;
-        }
+body {
+    background-color: var(--black);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
 
-        /* Section Hero */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
-            background-size: cover;
-            background-position: center;
-            transition: background-image 1s ease-in-out;
-            position: relative;
-        }
+/* ============================================================
+   NAVBAR & CURSEUR
+============================================================ */
+.navbar {
+    position: fixed; top: 0; width: 100%;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 40px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(15px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(212,175,55,0.1);
+}
+.nav-logo { color: var(--gold); font-family: var(--ff-display); font-weight: 700; font-size: 1.5rem; text-decoration: none; }
+.nav-links { display: flex; gap: 30px; }
+.nav-links a { color: var(--text); text-decoration: none; font-size: 0.9rem; letter-spacing: 1px; opacity: 0.8; transition: 0.3s; }
+.nav-links a:hover { color: var(--gold); opacity: 1; }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-        }
+.lang-switcher select {
+    background: rgba(255,255,255,0.05); color: var(--text);
+    border: 1px solid rgba(212,175,55,0.3); padding: 5px 10px; border-radius: 4px;
+    outline: none; cursor: pointer;
+}
 
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-        }
+/* ============================================================
+   FOND LIQUIDE ET GRAIN
+============================================================ */
+#liquid-canvas { position: fixed; inset: 0; z-index: 0; }
+.grain {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
 
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 1s ease-out;
-        }
+/* ============================================================
+   HERO - GLASS CARD
+============================================================ */
+.hero-wrapper {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    padding: 120px 20px 60px; position: relative; z-index: 10;
+}
 
-        h1 span {
-            color: var(--gold);
-            display: block;
-        }
+.glass-card {
+    max-width: 800px; width: 100%; padding: 80px 40px;
+    background: rgba(0,0,0,0.5); backdrop-filter: blur(30px);
+    border: 1px solid rgba(212,175,55,0.2); border-radius: 4px;
+    text-align: center; box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+    opacity: 0; transform: translateY(30px); transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-card.visible { opacity: 1; transform: translateY(0); }
 
-        p {
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #888;
-            margin-bottom: 2rem;
-            opacity: 0;
-            transition: opacity 1.5s ease-in;
-        }
+.hero-title { font-family: var(--ff-display); font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
+.title-gold { background: linear-gradient(90deg, #D4AF37, #F0D060); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-style: italic; }
+#hero-subtitle { font-family: var(--ff-fine); font-size: 1.4rem; color: var(--muted); letter-spacing: 2px; }
 
-        .visible {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
+/* ============================================================
+   SECTIONS CONTENU
+============================================================ */
+.section { position: relative; z-index: 10; padding: 100px 20px; max-width: 900px; margin: auto; }
+.section-title { font-family: var(--ff-display); color: var(--gold); font-size: 2.5rem; margin-bottom: 40px; text-align: center; }
 
-        #loading {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: var(--gold);
-            font-size: 0.8rem;
-            letter-spacing: 4px;
-        }
-    </style>
+/* FAQ */
+.faq-item { border-bottom: 1px solid rgba(212,175,55,0.1); padding: 10px 0; }
+.faq-question { width: 100%; background: none; border: none; color: white; padding: 20px 0; text-align: left; font-size: 1.1rem; cursor: pointer; font-family: var(--ff-fine); display: flex; justify-content: space-between; }
+.faq-question::after { content: '+'; color: var(--gold); }
+.faq-answer { max-height: 0; overflow: hidden; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); color: var(--muted); padding-bottom: 0; }
+.faq-item.active .faq-answer { max-height: 200px; padding-bottom: 20px; }
+.faq-item.active .faq-question::after { content: '-'; }
+
+/* COOKIES */
+.cookie-banner {
+    position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
+    width: 90%; max-width: 500px; background: rgba(15,15,15,0.95);
+    border: 1px solid var(--gold); padding: 25px; border-radius: 8px;
+    z-index: 2000; transition: 0.6s; backdrop-filter: blur(10px);
+}
+.cookie-banner.show { bottom: 30px; }
+.cookie-actions { display: flex; gap: 15px; margin-top: 15px; }
+.cookie-actions button { flex: 1; padding: 10px; border: none; cursor: pointer; font-weight: bold; }
+#accept-cookies { background: var(--gold); color: black; }
+#refuse-cookies { background: transparent; color: white; border: 1px solid #444; }
+
+@media (max-width: 768px) {
+    .navbar { padding: 15px 20px; }
+    .nav-links { display: none; } /* On cache les liens sur mobile pour la clarté */
+    .glass-card { padding: 50px 20px; }
+}
+</style>
 </head>
 <body>
 
-    <div id="cursor-dot"></div>
-    <div id="loading">CHARGEMENT...</div>
+<nav class="navbar">
+    <a href="#" class="nav-logo">Big Mahmoud</a>
+    <div class="nav-links">
+        <a href="#faq" data-i18n="faq">FAQ</a>
+        <a href="#politique" data-i18n="policy">Politique</a>
+    </div>
+    <div class="lang-switcher">
+        <select id="lang-select">
+            <option value="fr">FR</option>
+            <option value="ar">AR</option>
+            <option value="zh">中文</option>
+            <option value="de">DE</option>
+        </select>
+    </div>
+</nav>
 
-    <section class="hero" id="hero-section">
-        <div class="hero-content">
-            <p id="hero-subtitle"></p>
-            <h1 id="hero-title">
-                <span id="title-main"></span>
-                <span id="title-gold" style="color: var(--gold);"></span>
-            </h1>
-        </div>
-    </section>
+<canvas id="liquid-canvas"></canvas>
+<div class="grain"></div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+<div class="hero-wrapper">
+    <div class="glass-card" id="card">
+        <h1 class="hero-title">
+            <span id="title-main">L'Art du Café,</span><br>
+            <span class="title-gold" id="title-gold">Redéfini.</span>
+        </h1>
+        <p id="hero-subtitle">Une expérience sensorielle unique à El Jem.</p>
+    </div>
+</div>
 
-        // CONFIGURATION (Vérifie bien ton ID de projet ici)
-        const firebaseConfig = {
-            projectId: "bigmahmoud-b5659",
-            authDomain: "bigmahmoud-b5659.firebaseapp.com"
-        };
+<section id="faq" class="section">
+    <h2 class="section-title" data-i18n="faq">FAQ</h2>
+    <div class="faq-item">
+        <button class="faq-question">Où se trouve Big Mahmoud à El Jem ?</button>
+        <div class="faq-answer">Nous sommes situés au cœur d'El Jem, à quelques pas de l'amphithéâtre romain. Venez nous rendre visite !</div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">Quels types de café proposez-vous ?</button>
+        <div class="faq-answer">De l'espresso italien aux méthodes douces (V60, Chemex), nous sélectionnons des grains Arabica d'exception.</div>
+    </div>
+    <div class="faq-item">
+        <button class="faq-question">Quels sont les horaires d'ouverture ?</button>
+        <div class="faq-answer">Étant donné notre ouverture récente, nos horaires sont actuellement flexibles. Suivez-nous pour les détails.</div>
+    </div>
+</section>
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+<section id="politique" class="section">
+    <h2 class="section-title" data-i18n="policy">Politique de Confidentialité</h2>
+    <div style="color: var(--muted); text-align: left;">
+        <p style="margin-bottom:15px;"><strong>Big Mahmoud</strong> protège vos données. Nous collectons uniquement les informations nécessaires à votre confort (langue, cookies techniques).</p>
+        <p style="margin-bottom:15px;">Vos données sont stockées de manière sécurisée via Google Firebase et ne sont jamais partagées.</p>
+        <p>Pour toute question sur vos données à <strong>El Jem</strong>, contactez-nous en personne.</p>
+    </div>
+</section>
 
-        // Récupération des données en temps réel
-        const unsub = onSnapshot(doc(db, "public_content", "home"), (doc) => {
-            if (doc.exists()) {
-                const data = doc.data();
-                
-                // Remplissage des textes
-                document.getElementById('title-main').textContent = data.heroTitleMain;
-                document.getElementById('title-gold').textContent = data.heroTitleGold;
-                document.getElementById('hero-subtitle').textContent = data.heroSubtitle;
-                
-                // Image de fond
-                if (data.heroImageUrl) {
-                    document.getElementById('hero-section').style.backgroundImage = `url('${data.heroImageUrl.trim()}')`;
-                }
+<div id="cookie-banner" class="cookie-banner">
+    <p>Nous utilisons des cookies pour parfaire votre expérience visuelle.</p>
+    <div class="cookie-actions">
+        <button id="accept-cookies">Accepter</button>
+        <button id="refuse-cookies">Refuser</button>
+    </div>
+</div>
 
-                // Animations de visibilité
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('hero-title').classList.add('visible');
-                document.querySelector('.hero-content p').classList.add('visible');
-            } else {
-                console.log("Document 'home' introuvable !");
-            }
+<script type="module">
+    // ================= CONFIG & DEVICES =================
+    const isHighEnd = () => {
+        const ua = navigator.userAgent;
+        return /iPhone/.test(ua) || (navigator.hardwareConcurrency >= 4);
+    };
+
+    // ================= LIQUID BACKGROUND =================
+    const canvas = document.getElementById('liquid-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H, t = 0;
+
+    function resize() {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function draw() {
+        t += isHighEnd() ? 0.01 : 0.006;
+        ctx.fillStyle = "#050505";
+        ctx.fillRect(0, 0, W, H);
+
+        const cx = W * 0.5 + Math.sin(t * 0.5) * 50;
+        const cy = H * 0.5 + Math.cos(t * 0.3) * 30;
+        const r = Math.min(W, H) * 0.45;
+
+        const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+        grad.addColorStop(0, "rgba(212,175,55,0.08)");
+        grad.addColorStop(1, "transparent");
+
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.fill();
+        requestAnimationFrame(draw);
+    }
+    draw();
+
+    // ================= FIREBASE INTEGRATION =================
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+    import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+        projectId: "bigmahmoud-b5659",
+        authDomain: "bigmahmoud-b5659.firebaseapp.com"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    onSnapshot(doc(db, "public_content", "home"), (snap) => {
+        if (snap.exists()) {
+            const d = snap.data();
+            if (d.heroTitleMain) document.getElementById('title-main').textContent = d.heroTitleMain;
+            if (d.heroTitleGold) document.getElementById('title-gold').textContent = d.heroTitleGold;
+            if (d.heroSubtitle) document.getElementById('hero-subtitle').textContent = d.heroSubtitle;
+        }
+        document.getElementById('card').classList.add('visible');
+    });
+
+    // ================= LOGIQUE UI =================
+    // FAQ
+    document.querySelectorAll('.faq-question').forEach(btn => {
+        btn.onclick = () => btn.parentElement.classList.toggle('active');
+    });
+
+    // Cookies
+    const banner = document.getElementById('cookie-banner');
+    if (!localStorage.getItem('cookiesAccepted')) {
+        setTimeout(() => banner.classList.add('show'), 2000);
+    }
+    document.getElementById('accept-cookies').onclick = () => {
+        localStorage.setItem('cookiesAccepted', 'yes');
+        banner.classList.remove('show');
+    };
+    document.getElementById('refuse-cookies').onclick = () => {
+        localStorage.setItem('cookiesAccepted', 'no');
+        banner.classList.remove('show');
+    };
+
+    // Langues
+    const translations = {
+        fr: { faq: "FAQ", policy: "Politique" },
+        ar: { faq: "الأسئلة الشائعة", policy: "السياسة" },
+        zh: { faq: "常见问题", policy: "政策" },
+        de: { faq: "FAQ", policy: "Richtlinie" }
+    };
+
+    document.getElementById('lang-select').onchange = (e) => {
+        const lang = e.target.value;
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.dataset.i18n;
+            if (translations[lang][key]) el.textContent = translations[lang][key];
         });
-
-        // Gestion du curseur
-        const dot = document.getElementById('cursor-dot');
-        window.addEventListener('mousemove', (e) => {
-            dot.style.left = e.clientX + 'px';
-            dot.style.top = e.clientY + 'px';
-        });
-    </script>
+        document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+    };
+</script>
 </body>
 </html>
