@@ -71,13 +71,14 @@ function initHamburger() {
   const mob = document.getElementById('mobileMenu');
   if (!ham || !mob) return;
   ham.addEventListener('click', () => {
-    mob.classList.toggle('open');
-    document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : '';
+    const isOpen = mob.classList.toggle('open');
+    ham.classList.toggle('is-open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   });
-  // Close on link click
   mob.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => {
       mob.classList.remove('open');
+      ham.classList.remove('is-open');
       document.body.style.overflow = '';
     });
   });
