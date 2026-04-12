@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes, viewport-fit=cover">
+  <title>Visite 3D | Big Mahmoud</title>
+  <meta name="description" content="Visitez Big Mahmoud en immersion 3D — café, restaurant et aire de jeux à El Jem.">
+  <meta name="theme-color" content="#D4AF37">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='72' text-anchor='middle' font-family='Georgia' font-size='60' fill='%23D4AF37' font-weight='bold'%3EBM%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-alt">
+
+<!-- ══ LOADER ══ -->
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">BIG MAHMOUD</div>
+    <div class="loader-bar"></div>
+  </div>
+</div>
+
+<div id="scroll-indicator"></div>
+
+<!-- ══ NAVBAR ══ -->
+<nav id="navbar">
+  <a class="logo" href="index.html">BIG MAHMOUD</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="galerie.html">Galerie</a></li>
+    <li><a href="evenements.html">Événements</a></li>
+    <li><a href="reservation.html">Réservation</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="visite3d.html">Visite 3D</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+  </ul>
+  <div class="nav-right">
+    <a class="btn-reserve-nav" href="reservation.html">Réserver</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Accueil</a>
+  <a href="menu.html">Menu</a>
+  <a href="galerie.html">Galerie</a>
+  <a href="evenements.html">Événements</a>
+  <a href="reservation.html">Réservation</a>
+  <a href="contact.html">Contact</a>
+  <a href="visite3d.html">Visite 3D</a>
+  <a href="faq.html">FAQ</a>
+</div>
+
+<!-- ══ CONTENU ══ -->
+<div class="section">
+  <p class="section-sub">✦ Immersion ✦</p>
+  <h2 class="section-title reveal">Visites 3D</h2>
+  <div class="divider reveal"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
+  <div class="tour-tabs">
+    <button class="tour-tab active" data-tour="cafe">Café & Restaurant</button>
+    <button class="tour-tab" data-tour="jeux">Aire de jeux</button>
+  </div>
+  <div class="tour-frame reveal">
+    <iframe id="tourIframe" src="https://realsee.ai/49kkWzLj" title="Visite 3D Big Mahmoud" loading="lazy"></iframe>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="logo" href="index.html">BIG MAHMOUD</a>
+      <p>Café & Restaurant premium à El Jem, Tunisie.</p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/big__mahmoud/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Navigation</h4><ul>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="reservation.html">Réservation</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Infos</h4><ul>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a onclick="showCookies()">Cookies</a></li>
+      <li><a onclick="showLegal()">Mentions légales</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 BIG MAHMOUD — Tous droits réservés</p></div>
+</footer>
+
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">
+  <i class="fas fa-chevron-up"></i>
+</button>
+<a href="https://wa.me/21621006219" id="wa-float" aria-label="WhatsApp" target="_blank" rel="noopener">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<script src="script.js"></script>
+</body>
+</html>

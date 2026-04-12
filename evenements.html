@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes, viewport-fit=cover">
-  <title>Galerie | Big Mahmoud</title>
-  <meta name="description" content="Galerie photos de Big Mahmoud — ambiance, plats, boissons, décoration.">
+  <title>Événements | Big Mahmoud</title>
+  <meta name="description" content="Soirées Ramadan, matchs en direct, anniversaires — les événements Big Mahmoud à El Jem.">
   <meta name="theme-color" content="#D4AF37">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='72' text-anchor='middle' font-family='Georgia' font-size='60' fill='%23D4AF37' font-weight='bold'%3EBM%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,33 +59,32 @@
 
 <!-- ══ CONTENU ══ -->
 <div class="section">
-  <p class="section-sub">✦ Nos photos ✦</p>
-  <h2 class="section-title reveal">Galerie</h2>
+  <p class="section-sub">✦ Au programme ✦</p>
+  <h2 class="section-title reveal">Nos Événements</h2>
   <div class="divider reveal"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
-  <div class="gallery-masonry">
-    <div class="gallery-item" onclick="openLightbox(this)">
-      <img loading="lazy" src="https://raw.githubusercontent.com/yanisez333-spec/big-mahmoud/main/7d1b0597-7ded-42ac-8127-0a9386ac692e.jpeg" alt="Boisson signature">
-      <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+  <div class="countdown" id="countdown"></div>
+  <div class="events-grid">
+    <div class="event-card reveal">
+      <span class="event-icon">🌙</span>
+      <div class="event-title">Soirées Ramadan</div>
+      <div class="event-desc">Menu Iftar exclusif, musique live.</div>
     </div>
-    <div class="gallery-item" onclick="openLightbox(this)">
-      <img loading="lazy" src="https://raw.githubusercontent.com/yanisez333-spec/big-mahmoud/main/539f40b6-b25f-4184-b126-26ba259125e3.jpeg" alt="Plat maison">
-      <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+    <div class="event-card reveal">
+      <span class="event-icon">⚽</span>
+      <div class="event-title">Matchs en direct</div>
+      <div class="event-desc">Grands écrans HD.</div>
     </div>
-    <div class="gallery-item" onclick="openLightbox(this)">
-      <img loading="lazy" src="https://raw.githubusercontent.com/yanisez333-spec/big-mahmoud/main/06923325-2a8f-4729-963f-ebdd693663a2.jpeg" alt="Dessert">
-      <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
-    </div>
-    <div class="gallery-item" onclick="openLightbox(this)">
-      <img loading="lazy" src="https://raw.githubusercontent.com/yanisez333-spec/big-mahmoud/main/fc496437-522a-4390-a448-4ed560b551f7.jpg" alt="Intérieur">
-      <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+    <div class="event-card reveal">
+      <span class="event-icon">🎂</span>
+      <div class="event-title">Anniversaires</div>
+      <div class="event-desc">Organisation sur mesure.</div>
     </div>
   </div>
-</div>
-
-<!-- LIGHTBOX -->
-<div id="lightbox">
-  <span id="lightbox-close" onclick="closeLightbox()">✕</span>
-  <img id="lightbox-img" src="" alt="">
+  <div style="text-align: center; margin-top: 50px;">
+    <a class="btn-primary" href="reservation.html">
+      Réserver pour un événement <i class="fas fa-arrow-right"></i>
+    </a>
+  </div>
 </div>
 
 <!-- ══ FOOTER ══ -->
