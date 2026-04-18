@@ -11,13 +11,43 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="style.css">
+
+  <!-- ══ FIREBASE ══ -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script>
+    if (!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey:            "AIzaSyBxAIJaqfigz9X2vZ_x8fJuK2RD8wgQ9-A",
+        authDomain:        "bigmahmoud-b5659.firebaseapp.com",
+        projectId:         "bigmahmoud-b5659",
+        storageBucket:     "bigmahmoud-b5659.firebasestorage.app",
+        messagingSenderId: "88480505979",
+        appId:             "1:88480505979:web:41e35cc41dbfa1a834c2de"
+      });
+    }
+    const db = firebase.firestore();
+    db.collection("public_content").doc("home").onSnapshot((snap) => {
+      if (!snap.exists) return;
+      const data = snap.data();
+      if (data.heroHours) {
+        document.querySelectorAll("[data-firebase='heroHours']")
+          .forEach(el => el.textContent = data.heroHours);
+      }
+      if (data.heroImageUrl) {
+        const heroBg = document.getElementById("heroBg");
+        if (heroBg) heroBg.style.backgroundImage = "url('" + data.heroImageUrl + "')";
+      }
+      if (data.heroTitleMain) document.querySelectorAll("[data-firebase='heroTitleMain']").forEach(el => el.textContent = data.heroTitleMain);
+      if (data.heroTitleGold) document.querySelectorAll("[data-firebase='heroTitleGold']").forEach(el => el.textContent = data.heroTitleGold);
+      if (data.heroSubtitle)  document.querySelectorAll("[data-firebase='heroSubtitle']").forEach(el => el.textContent = data.heroSubtitle);
+    });
+  </script>
 </head>
 <body>
 
-<!-- ══ LOADER ══ -->
 <div id="loader">
   <div class="loader-inner">
     <div class="loader-logo">BIG MAHMOUD</div>
@@ -27,40 +57,32 @@
 
 <div id="scroll-indicator"></div>
 
-<!-- ══ NAVBAR ══ -->
 <nav id="navbar">
   <a class="logo" href="index.html">BIG MAHMOUD</a>
   <ul class="nav-links">
     <li><a href="index.html">Accueil</a></li>
     <li><a href="menu.html">Menu</a></li>
-    <li><a href="galerie.html">Galerie</a></li>
     <li><a href="evenements.html">Événements</a></li>
     <li><a href="reservation.html">Réservation</a></li>
-    <li><a href="contact.html">Contact</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
     <li><a href="visite3d.html">Visite 3D</a></li>
-    <li><a href="faq.html">FAQ</a></li>
   </ul>
   <div class="nav-right">
     <a class="btn-reserve-nav" href="reservation.html">Réserver</a>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html">Accueil</a>
   <a href="menu.html">Menu</a>
-  <a href="galerie.html">Galerie</a>
   <a href="evenements.html">Événements</a>
   <a href="reservation.html">Réservation</a>
   <a href="contact.html">Contact</a>
   <a href="visite3d.html">Visite 3D</a>
-  <a href="faq.html">FAQ</a>
   <div class="mob-footer">+216 21 006 219 &nbsp;·&nbsp; El Jem</div>
 </div>
 
-<!-- ══ CONTENU ══ -->
 <div class="section">
   <p class="section-sub">✦ Contact & accès ✦</p>
   <h2 class="section-title reveal">Nous trouver</h2>
@@ -70,32 +92,33 @@
     <div class="reveal">
       <div class="contact-row"><i class="fas fa-map-marker-alt"></i><div><div class="contact-label">Adresse</div><div>Av. Hedi Chaker, El Jem 5160, Tunisie</div></div></div>
       <div class="contact-row"><i class="fas fa-phone"></i><div><div class="contact-label">Téléphone</div><div><a href="tel:+21621006219" style="color: var(--text);">+216 21 006 219</a></div></div></div>
-      <div class="contact-row"><i class="fas fa-clock"></i><div><div class="contact-label">Horaires</div><div>Lun–Ven : 08h–23h<br>Sam–Dim : 08h–00h</div></div></div>
+      <div class="contact-row"><i class="fas fa-clock"></i><div><div class="contact-label">Horaires</div><div>Ouvert 24h/24<br>7 jours/7</div></div></div>
       <div class="contact-row"><i class="fas fa-directions"></i><div><div class="contact-label">Itinéraire</div><div><a href="https://www.google.com/maps/dir//Big+mahmoud,+Av.+Hedi+Chaker,+El+Jem+5160/@35.2994017,10.6931274,17z" target="_blank" style="color: var(--gold);">Ouvrir dans Google Maps</a></div></div></div>
       <div class="contact-row"><i class="fab fa-instagram"></i><div><div class="contact-label">Instagram</div><div><a href="https://www.instagram.com/big__mahmoud/" target="_blank" style="color: var(--gold);">@big__mahmoud</a></div></div></div>
+      <div class="contact-row"><i class="fab fa-facebook-f"></i><div><div class="contact-label">Facebook</div><div><a href="https://www.facebook.com/profile.php?id=61586520484625" target="_blank" style="color: var(--gold);">Big Mahmoud</a></div></div></div>
+      <div class="contact-row"><i class="fab fa-whatsapp"></i><div><div class="contact-label">WhatsApp</div><div><a href="https://wa.me/21621006219" target="_blank" style="color: var(--gold);">+216 21 006 219</a></div></div></div>
     </div>
 
-    <!-- ══ MAP NOIR & OR ══ -->
     <div class="map-container reveal">
       <div id="map"></div>
     </div>
   </div>
 </div>
 
-<!-- ══ FOOTER ══ -->
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
       <a class="logo" href="index.html">BIG MAHMOUD</a>
       <p>Café & Restaurant premium à El Jem, Tunisie.</p>
       <div class="social-links">
-        <a href="https://www.instagram.com/big__mahmoud/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=61586520484625" target="_blank" rel="noopener" class="social-link" aria-label="Facebook Big Mahmoud"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://wa.me/21621006219" target="_blank" rel="noopener" class="social-link" aria-label="WhatsApp Big Mahmoud"><i class="fab fa-whatsapp"></i></a>
+<a href="https://www.instagram.com/big__mahmoud/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
       </div>
     </div>
     <div class="footer-col"><h4>Navigation</h4><ul>
       <li><a href="menu.html">Menu</a></li>
       <li><a href="reservation.html">Réservation</a></li>
-      <li><a href="faq.html">FAQ</a></li>
     </ul></div>
     <div class="footer-col"><h4>Infos</h4><ul>
       <li><a onclick="showCookies()">Cookies</a></li>
@@ -105,89 +128,50 @@
   <div class="footer-bottom"><p>© 2026 BIG MAHMOUD — Tous droits réservés</p></div>
 </footer>
 
-<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">
-  <i class="fas fa-chevron-up"></i>
-</button>
-<a href="https://wa.me/21621006219" id="wa-float" aria-label="WhatsApp" target="_blank" rel="noopener">
-  <i class="fab fa-whatsapp"></i>
-</a>
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut"><i class="fas fa-chevron-up"></i></button>
+<a href="https://wa.me/21621006219" id="wa-float" aria-label="WhatsApp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
 
 <script src="script.js"></script>
-
-<!-- ══ LEAFLET MAP ══ -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const BIG_MAHMOUD = [35.2994017, 10.6931274];
+  const map = L.map('map', { center: BIG_MAHMOUD, zoom: 16, zoomControl: false, attributionControl: true });
 
-  const map = L.map('map', {
-    center: BIG_MAHMOUD,
-    zoom: 16,
-    zoomControl: false,
-    attributionControl: true
-  });
-
-  /* ── Tuile sombre CartoDB Dark Matter ── */
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '© <a href="https://www.openstreetmap.org/copyright">OSM</a> | © <a href="https://carto.com/">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 20
+    subdomains: 'abcd', maxZoom: 20
   }).addTo(map);
 
-  /* ── Zoom bas à droite ── */
   L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-  /* ── Marqueur or personnalisé ── */
   const goldIcon = L.divIcon({
-    html: `
-      <svg viewBox="0 0 44 56" xmlns="http://www.w3.org/2000/svg" width="44" height="56">
-        <defs>
-          <radialGradient id="pinGrad" cx="40%" cy="35%">
-            <stop offset="0%" stop-color="#F0D060"/>
-            <stop offset="100%" stop-color="#A07820"/>
-          </radialGradient>
-          <filter id="shadow">
-            <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="rgba(0,0,0,0.6)"/>
-          </filter>
-        </defs>
-        <path d="M22 0C9.85 0 0 9.85 0 22c0 7.4 3.5 14 9 18.2L22 56l13-15.8C40.5 36 44 29.4 44 22 44 9.85 34.15 0 22 0z"
-              fill="url(#pinGrad)" filter="url(#shadow)"/>
-        <circle cx="22" cy="22" r="11" fill="#0a0a0a"/>
-        <text x="22" y="26.5" text-anchor="middle" font-size="9" fill="#D4AF37"
-              font-family="Georgia,serif" font-weight="bold" letter-spacing="0.5">BM</text>
-      </svg>`,
-    className: '',
-    iconSize: [44, 56],
-    iconAnchor: [22, 56],
-    popupAnchor: [0, -58]
+    html: `<svg viewBox="0 0 44 56" xmlns="http://www.w3.org/2000/svg" width="44" height="56">
+      <defs>
+        <radialGradient id="pinGrad" cx="40%" cy="35%">
+          <stop offset="0%" stop-color="#F0D060"/>
+          <stop offset="100%" stop-color="#A07820"/>
+        </radialGradient>
+        <filter id="shadow"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="rgba(0,0,0,0.6)"/></filter>
+      </defs>
+      <path d="M22 0C9.85 0 0 9.85 0 22c0 7.4 3.5 14 9 18.2L22 56l13-15.8C40.5 36 44 29.4 44 22 44 9.85 34.15 0 22 0z" fill="url(#pinGrad)" filter="url(#shadow)"/>
+      <circle cx="22" cy="22" r="11" fill="#0a0a0a"/>
+      <text x="22" y="26.5" text-anchor="middle" font-size="9" fill="#D4AF37" font-family="Georgia,serif" font-weight="bold" letter-spacing="0.5">BM</text>
+    </svg>`,
+    className: '', iconSize: [44, 56], iconAnchor: [22, 56], popupAnchor: [0, -58]
   });
 
-  /* ── Popup ── */
-  L.marker(BIG_MAHMOUD, { icon: goldIcon })
-    .addTo(map)
-    .bindPopup(
-      `<div style="text-align:center; padding:4px 6px;">
-        <div style="font-family:'Playfair Display',serif; color:#D4AF37; font-size:1.05rem; margin-bottom:4px;">Big Mahmoud</div>
-        <div style="font-size:0.8rem; color:#b0a088;">Av. Hedi Chaker, El Jem</div>
-        <a href="https://www.google.com/maps/dir//Big+mahmoud,+Av.+Hedi+Chaker,+El+Jem+5160/@35.2994017,10.6931274,17z"
-           target="_blank"
-           style="display:inline-block; margin-top:8px; padding:5px 14px; background:#D4AF37; color:#000;
-                  border-radius:20px; text-decoration:none; font-size:0.75rem; font-weight:bold;">
-          Itinéraire <i class="fas fa-directions"></i>
-        </a>
-      </div>`,
-      { className: 'gold-popup', maxWidth: 200 }
-    )
+  L.marker(BIG_MAHMOUD, { icon: goldIcon }).addTo(map)
+    .bindPopup(`<div style="text-align:center;padding:4px 6px;">
+      <div style="font-family:'Playfair Display',serif;color:#D4AF37;font-size:1.05rem;margin-bottom:4px;">Big Mahmoud</div>
+      <div style="font-size:0.8rem;color:#b0a088;">Av. Hedi Chaker, El Jem</div>
+      <a href="https://www.google.com/maps/dir//Big+mahmoud,+Av.+Hedi+Chaker,+El+Jem+5160/@35.2994017,10.6931274,17z" target="_blank"
+         style="display:inline-block;margin-top:8px;padding:5px 14px;background:#D4AF37;color:#000;border-radius:20px;text-decoration:none;font-size:0.75rem;font-weight:bold;">
+        Itinéraire <i class="fas fa-directions"></i>
+      </a></div>`, { className: 'gold-popup', maxWidth: 200 })
     .openPopup();
 
-  /* ── Cercle doré autour du pin ── */
-  L.circle(BIG_MAHMOUD, {
-    radius: 60,
-    color: '#D4AF37',
-    fillColor: 'rgba(212,175,55,0.07)',
-    fillOpacity: 1,
-    weight: 1
-  }).addTo(map);
+  L.circle(BIG_MAHMOUD, { radius: 60, color: '#D4AF37', fillColor: 'rgba(212,175,55,0.07)', fillOpacity: 1, weight: 1 }).addTo(map);
 });
 </script>
 </body>

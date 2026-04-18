@@ -1,0 +1,6 @@
+# Big Mahmoud — robots.txt
+User-agent: *
+Allow: /
+Disallow: /manager.html
+Disallow: /admin/
+Sitemap: https://bigmahmoud.tn/sitemap.xml

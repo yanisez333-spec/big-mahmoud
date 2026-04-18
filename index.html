@@ -1,157 +1,435 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" dir="ltr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes, viewport-fit=cover">
-  <title>Big Mahmoud | Café & Restaurant d'Exception — El Jem</title>
-  <meta name="description" content="Big Mahmoud — Restaurant & Café haut de gamme à El Jem. Cuisine salée, sucrée, chicha, visites 3D. Réservation WhatsApp.">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- ══════════════════════════════════════════════
+       SEO — TITRE & DESCRIPTION (FR + AR)
+  ══════════════════════════════════════════════ -->
+  <title>Big Mahmoud | Café & Restaurant Luxe — El Jem, Tunisie</title>
+
+  <!-- Description en français -->
+  <meta name="description"
+        content="Big Mahmoud — Café & Restaurant haut de gamme à El Jem, Tunisie. Chicha premium, cuisine salée et sucrée, visite 3D. Réservation via WhatsApp.">
+
+  <!-- Description en arabe (détectée par Google pour les recherches arabophones) -->
+  <meta name="description" xml:lang="ar"
+        content="بيغ محمود — مقهى ومطعم فاخر في الجم، تونس. شيشة مميزة، مأكولات متنوعة، جولة ثلاثية الأبعاد. احجز عبر واتساب.">
+
+  <meta name="keywords" content="restaurant El Jem, café El Jem, chicha El Jem, Big Mahmoud, restaurant Tunisie, مطعم الجم, مقهى الجم, بيغ محمود">
+  <meta name="author"   content="Big Mahmoud">
+  <meta name="robots"   content="index, follow">
   <meta name="theme-color" content="#D4AF37">
-  <meta name="keywords" content="restaurant El Jem, café El Jem, chicha El Jem, Big Mahmoud">
-  <meta name="author" content="Big Mahmoud">
-  <meta property="og:title" content="Big Mahmoud — Élégance & Saveurs à El Jem">
-  <meta property="og:description" content="Café raffiné, cuisine salée & sucrée, chicha, visites 3D. Réservez en un clic.">
-  <meta property="og:image" content="https://raw.githubusercontent.com/yanisez333-spec/big-mahmoud/main/fc496437-522a-4390-a448-4ed560b551f7.jpg">
-  <meta property="og:type" content="restaurant">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="geo.region" content="TN-53">
-  <meta name="geo.placename" content="El Jem">
-  <meta name="geo.position" content="35.2994017;10.6931274">
-  <meta name="ICBM" content="35.2994017, 10.6931274">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='72' text-anchor='middle' font-family='Georgia' font-size='60' fill='%23D4AF37' font-weight='bold'%3EBM%3C/text%3E%3C/svg%3E">
-  <link rel="preload" as="image" href="https://raw.githubusercontent.com/yanisez333-spec/big-mahmoud/main/fc496437-522a-4390-a448-4ed560b551f7.jpg" fetchpriority="high">
+  <link rel="canonical" href="https://bigmahmoud.tn/">
+
+  <!-- ── Open Graph (réseaux sociaux) ── -->
+  <meta property="og:type"        content="restaurant">
+  <meta property="og:url"         content="https://bigmahmoud.tn/">
+  <meta property="og:locale"      content="fr_TN">
+  <meta property="og:locale:alternate" content="ar_TN">
+  <meta property="og:title"       content="Big Mahmoud — El Jem, Tunisie">
+  <meta property="og:description" content="Café & Restaurant haut de gamme. Chicha, cuisine salée & sucrée, visite 3D. Réservez sur WhatsApp.">
+  <meta property="og:image"       content="https://raw.githubusercontent.com/yanisez333-spec/big-mahmoud/main/fc496437-522a-4390-a448-4ed560b551f7.jpg">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt"    content="Intérieur Big Mahmoud El Jem">
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:image"       content="https://raw.githubusercontent.com/yanisez333-spec/big-mahmoud/main/fc496437-522a-4390-a448-4ed560b551f7.jpg">
+
+  <!-- Géolocalisation -->
+  <meta name="geo.region"    content="TN-53">
+  <meta name="geo.placename" content="El Jem, Tunisie">
+  <meta name="geo.position"  content="35.2994017;10.6931274">
+  <meta name="ICBM"          content="35.2994017, 10.6931274">
+
+  <!-- ══════════════════════════════════════════════
+       FAVICON — Format PNG inline (base64)
+       Google utilise ce format pour l'icône dans
+       les résultats de recherche mobile.
+       Taille recommandée : 48×48 minimum.
+  ══════════════════════════════════════════════ -->
+  <!--
+    Pour le meilleur affichage dans Google Search :
+    1. Remplacez ce SVG par un vrai fichier favicon.png (48×48 ou 96×96)
+       et ajoutez : <link rel="icon" type="image/png" href="favicon.png">
+    2. En attendant, le SVG ci-dessous fonctionne sur Chrome/Edge/Firefox.
+  -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='8' fill='%23050505'/%3E%3Ctext x='24' y='33' text-anchor='middle' font-family='Georgia%2Cserif' font-size='26' fill='%23D4AF37' font-weight='bold'%3EBM%3C/text%3E%3C/svg%3E">
+  <!-- PNG fallback pour navigateurs plus anciens -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='28' fill='%23050505'/%3E%3Ctext x='90' y='124' text-anchor='middle' font-family='Georgia%2Cserif' font-size='96' fill='%23D4AF37' font-weight='bold'%3EBM%3C/text%3E%3C/svg%3E">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Préchargement image hero -->
+  <link rel="preload" as="image"
+        href="https://raw.githubusercontent.com/yanisez333-spec/big-mahmoud/main/fc496437-522a-4390-a448-4ed560b551f7.jpg"
+        fetchpriority="high">
+
+  <!-- Polices -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+  <!-- Icônes -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <link rel="stylesheet" href="style.css">
+
+  <!-- ══ Schema.org Restaurant (SEO structuré) ══ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Big Mahmoud",
+    "description": "Café & Restaurant haut de gamme à El Jem, Tunisie.",
+    "url": "https://bigmahmoud.tn",
+    "telephone": "+21621006219",
+    "servesCuisine": ["Tunisienne", "Méditerranéenne", "Internationale"],
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "El Jem",
+      "postalCode": "5160",
+      "addressCountry": "TN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 35.2994017,
+      "longitude": 10.6931274
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Sunday"],
+        "opens": "08:00", "closes": "23:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Friday","Saturday"],
+        "opens": "08:00", "closes": "00:00"
+      }
+    ],
+    "sameAs": ["https://www.instagram.com/big__mahmoud/"],
+    "image": "https://raw.githubusercontent.com/yanisez333-spec/big-mahmoud/main/fc496437-522a-4390-a448-4ed560b551f7.jpg",
+    "hasMenu": "https://bigmahmoud.tn/menu.html"
+  }
+  </script>
+
+  <!-- Google Analytics — remplacez G-XXXXXXXXXX par votre ID réel -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script> -->
+
+  <!-- ══ FIREBASE ══ -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script>
+    if (!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey:            "AIzaSyBxAIJaqfigz9X2vZ_x8fJuK2RD8wgQ9-A",
+        authDomain:        "bigmahmoud-b5659.firebaseapp.com",
+        projectId:         "bigmahmoud-b5659",
+        storageBucket:     "bigmahmoud-b5659.firebasestorage.app",
+        messagingSenderId: "88480505979",
+        appId:             "1:88480505979:web:41e35cc41dbfa1a834c2de"
+      });
+    }
+    const db = firebase.firestore();
+    db.collection("public_content").doc("home").onSnapshot((snap) => {
+      if (!snap.exists) return;
+      const data = snap.data();
+      if (data.heroHours) {
+        document.querySelectorAll("[data-firebase='heroHours']")
+          .forEach(el => el.textContent = data.heroHours);
+      }
+      if (data.heroImageUrl) {
+        const heroBg = document.getElementById("heroBg");
+        if (heroBg) heroBg.style.backgroundImage = "url('" + data.heroImageUrl + "')";
+      }
+      if (data.heroTitleMain) document.querySelectorAll("[data-firebase='heroTitleMain']").forEach(el => el.textContent = data.heroTitleMain);
+      if (data.heroTitleGold) document.querySelectorAll("[data-firebase='heroTitleGold']").forEach(el => el.textContent = data.heroTitleGold);
+      if (data.heroSubtitle)  document.querySelectorAll("[data-firebase='heroSubtitle']").forEach(el => el.textContent = data.heroSubtitle);
+    });
+  </script>
 </head>
 <body>
 
+<!-- Curseur personnalisé injecté automatiquement par script.js -->
+
 <!-- ══ LOADER ══ -->
-<div id="loader">
+<div id="loader" aria-hidden="true">
   <div class="loader-inner">
+    <div class="loader-emblem">
+      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="40" cy="40" r="38"
+                stroke="#D4AF37" stroke-width="0.8"
+                stroke-dasharray="4 4" class="loader-circle"/>
+        <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
+              font-family="Playfair Display,serif" font-size="22"
+              fill="#D4AF37" font-weight="700">BM</text>
+      </svg>
+    </div>
     <div class="loader-logo">BIG MAHMOUD</div>
-    <div class="loader-bar"></div>
+    <div class="loader-tagline">El Jem · Tunisie</div>
+    <div class="loader-bar"><div class="loader-progress"></div></div>
   </div>
 </div>
 
-<!-- ══ BACKGROUND ÉTOILES ══ -->
-<div id="stars-bg"></div>
-<div id="scroll-indicator"></div>
+<div id="stars-bg"         aria-hidden="true"></div>
+<div id="scroll-indicator" aria-hidden="true"></div>
 
 <!-- ══ NAVBAR ══ -->
 <nav id="navbar">
-  <a class="logo" href="index.html">BIG MAHMOUD</a>
-  <ul class="nav-links">
-    <li><a href="index.html">Accueil</a></li>
-    <li><a href="menu.html">Menu</a></li>
-    <li><a href="galerie.html">Galerie</a></li>
-    <li><a href="evenements.html">Événements</a></li>
-    <li><a href="reservation.html">Réservation</a></li>
-    <li><a href="contact.html">Contact</a></li>
-    <li><a href="visite3d.html">Visite 3D</a></li>
-    <li><a href="faq.html">FAQ</a></li>
+  <a class="logo" href="index.html" aria-label="Big Mahmoud — Accueil">
+    BIG MAHMOUD
+  </a>
+
+  <ul class="nav-links" role="navigation" aria-label="Navigation principale">
+    <li><a href="index.html"      class="active" data-i18n="nav.home">Accueil</a></li>
+    <li><a href="menu.html"       data-i18n="nav.menu">Menu</a></li>
+    <li><a href="evenements.html" data-i18n="nav.events">Événements</a></li>
+    <li><a href="reservation.html"data-i18n="nav.reservation">Réservation</a></li>
+    <li><a href="contact.html"    data-i18n="nav.contact">Contact</a></li>
+    <li><a href="visite3d.html"   data-i18n="nav.visit3d">Visite 3D</a></li>
   </ul>
+
   <div class="nav-right">
-    <a class="btn-reserve-nav" href="reservation.html">Réserver</a>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
+    <!-- Sélecteur de langue FR / AR -->
+    <div class="lang-switch" aria-label="Changer de langue">
+      <button class="lang-btn active" data-lang="fr" onclick="switchLang('fr')" aria-label="Français">FR</button>
+      <span class="lang-sep">|</span>
+      <button class="lang-btn"       data-lang="ar" onclick="switchLang('ar')" aria-label="العربية">AR</button>
+    </div>
+
+    <!-- CTA réservation -->
+    <a class="btn-reserve-nav" href="reservation.html" aria-label="Réserver une table">
+      <i class="fas fa-calendar-check" aria-hidden="true"></i>
+      <span data-i18n="nav.reserve">Réserver</span>
+    </a>
+
+    <!-- Burger mobile -->
+    <button class="hamburger" id="hamburger"
+            aria-label="Ouvrir le menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
 <!-- ══ MENU MOBILE ══ -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="index.html">Accueil</a>
-  <a href="menu.html">Menu</a>
-  <a href="galerie.html">Galerie</a>
-  <a href="evenements.html">Événements</a>
-  <a href="reservation.html">Réservation</a>
-  <a href="contact.html">Contact</a>
-  <a href="visite3d.html">Visite 3D</a>
-  <a href="faq.html">FAQ</a>
-  <div class="mob-footer">+216 21 006 219 &nbsp;·&nbsp; El Jem</div>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <button class="mob-close" id="mobClose" aria-label="Fermer le menu">
+    <i class="fas fa-times" aria-hidden="true"></i>
+  </button>
+
+  <a href="index.html"       data-i18n="nav.home">Accueil</a>
+  <a href="menu.html"        data-i18n="nav.menu">Menu</a>
+  <a href="evenements.html"  data-i18n="nav.events">Événements</a>
+  <a href="reservation.html" data-i18n="nav.reservation">Réservation</a>
+  <a href="contact.html"     data-i18n="nav.contact">Contact</a>
+  <a href="visite3d.html"    data-i18n="nav.visit3d">Visite 3D</a>
+
+  <!-- Langue dans le mobile menu -->
+  <div class="mob-lang">
+    <button class="lang-btn active" data-lang="fr" onclick="switchLang('fr')">Français</button>
+    <button class="lang-btn"        data-lang="ar" onclick="switchLang('ar')">العربية</button>
+  </div>
+
+  <!-- CTA WhatsApp bien visible -->
+  <a class="mob-reserve"
+     href="https://wa.me/21621006219"
+     target="_blank" rel="noopener"
+     aria-label="Réserver via WhatsApp">
+    <i class="fab fa-whatsapp" aria-hidden="true"></i>
+    <span data-i18n="wa.label">Réserver</span>
+  </a>
+
+  <div class="mob-footer">
+    <a href="tel:+21621006219">+216 21 006 219</a>
+    &nbsp;·&nbsp; El Jem
+  </div>
 </div>
 
 <!-- ══ HERO ══ -->
-<div class="hero">
-  <div class="hero-bg">
-    <img src="https://raw.githubusercontent.com/yanisez333-spec/big-mahmoud/main/fc496437-522a-4390-a448-4ed560b551f7.jpg" alt="Big Mahmoud" fetchpriority="high">
+<section class="hero" id="hero" aria-label="Accueil">
+  <div class="hero-bg" id="heroBg">
+    <img
+      src="https://raw.githubusercontent.com/yanisez333-spec/big-mahmoud/main/fc496437-522a-4390-a448-4ed560b551f7.jpg"
+      alt="Intérieur élégant du restaurant Big Mahmoud à El Jem, Tunisie"
+      fetchpriority="high"
+      decoding="async"
+      width="1920" height="1080"
+    >
+    <div class="hero-blur" aria-hidden="true"></div>
   </div>
-  <div class="hero-overlay"></div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="hero-grain"   aria-hidden="true"></div>
+  <div class="hero-beam" aria-hidden="true"></div>
+
   <div class="hero-content reveal">
-    <p class="hero-pre">✦ El Jem — Tunisie ✦</p>
-    <h1 class="hero-title">Big <span class="gold-text">Mahmoud</span></h1>
-    <p class="hero-sub">Café · Restaurant · Chicha · Visite 3D</p>
+    <p class="hero-pre" data-i18n="hero.pre">✦ El Jem — Tunisie ✦</p>
+
+    <h1 class="hero-title">
+      Big <span class="gold-gradient">Mahmoud</span>
+    </h1>
+
+    <p class="hero-sub" data-i18n="hero.sub">
+      Café · Restaurant · Chicha · Visite 3D
+    </p>
+
+    <!-- WhatsApp CTA principal -->
     <div class="btn-group">
-      <a class="btn-primary" href="reservation.html">Réserver <i class="fas fa-arrow-right"></i></a>
-      <a class="btn-secondary" href="menu.html">Menu</a>
+      <a class="btn-primary glow-btn btn-wa-hero"
+         href="https://wa.me/21621006219?text=Bonjour%2C%20je%20voudrais%20réserver%20une%20table."
+         target="_blank" rel="noopener"
+         aria-label="Réserver via WhatsApp">
+        <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        <span data-i18n="hero.cta">Réserver</span>
+      </a>
+      <a class="btn-secondary" href="menu.html" aria-label="Voir le menu">
+        <i class="fas fa-utensils" aria-hidden="true"></i>
+        <span data-i18n="hero.menu">Menu</span>
+      </a>
+    </div>
+
+    <!-- Horaires — info réelle uniquement -->
+    <div class="hero-hours">
+      <i class="fas fa-clock" aria-hidden="true"></i>
+      <span data-i18n="hero.hours" data-firebase="heroHours">Ouvert 24h/24 · 7j/7</span>
     </div>
   </div>
-</div>
 
-<!-- ══ FEATURES ══ -->
-<div class="hero-features">
-  <a class="hero-feat reveal" href="menu.html">
-    <div class="hero-feat-icon">☕</div>
-    <div class="hero-feat-label">Café & Boissons</div>
-    <div class="hero-feat-sub">Arabica, lattes, jus...</div>
+  <div class="hero-scroll-cue" aria-hidden="true">
+    <span></span>
+    <p data-i18n="hero.discover">Découvrir</p>
+  </div>
+</section>
+
+<!-- ══ PRESTATIONS ══ -->
+<div class="hero-features" role="list" aria-label="Nos prestations">
+  <a class="hero-feat reveal" href="menu.html" role="listitem">
+    <div class="hero-feat-icon" aria-hidden="true">☕</div>
+    <div class="hero-feat-label" data-i18n="feat.coffee">Café &amp; Boissons</div>
+    <div class="hero-feat-sub"   data-i18n="feat.coffee.sub">Arabica, lattes, jus...</div>
   </a>
-  <a class="hero-feat reveal" href="menu.html">
-    <div class="hero-feat-icon">🍕</div>
-    <div class="hero-feat-label">Cuisine Salée</div>
-    <div class="hero-feat-sub">Pizzas, pâtes, grillades...</div>
+  <a class="hero-feat reveal" href="menu.html" role="listitem">
+    <div class="hero-feat-icon" aria-hidden="true">🍕</div>
+    <div class="hero-feat-label" data-i18n="feat.food">Cuisine Salée</div>
+    <div class="hero-feat-sub"   data-i18n="feat.food.sub">Pizzas, pâtes, grillades...</div>
   </a>
-  <a class="hero-feat reveal" href="menu.html">
-    <div class="hero-feat-icon">🍰</div>
-    <div class="hero-feat-label">Pâtisseries</div>
-    <div class="hero-feat-sub">Crêpes, gaufres, desserts...</div>
+  <a class="hero-feat reveal" href="menu.html" role="listitem">
+    <div class="hero-feat-icon" aria-hidden="true">🍰</div>
+    <div class="hero-feat-label" data-i18n="feat.pastry">Pâtisseries</div>
+    <div class="hero-feat-sub"   data-i18n="feat.pastry.sub">Crêpes, gaufres, desserts...</div>
   </a>
-  <a class="hero-feat reveal" href="menu.html">
-    <div class="hero-feat-icon">💨</div>
-    <div class="hero-feat-label">Chicha</div>
-    <div class="hero-feat-sub">Love, Cheikh, Menthe...</div>
+  <a class="hero-feat reveal" href="menu.html" role="listitem">
+    <div class="hero-feat-icon" aria-hidden="true">💨</div>
+    <div class="hero-feat-label" data-i18n="feat.chicha">Chicha</div>
+    <div class="hero-feat-sub"   data-i18n="feat.chicha.sub">Love, Cheikh, Menthe...</div>
   </a>
-  <a class="hero-feat reveal" href="visite3d.html">
-    <div class="hero-feat-icon">🔮</div>
-    <div class="hero-feat-label">Visite 3D</div>
-    <div class="hero-feat-sub">Explorez en immersion</div>
+  <a class="hero-feat reveal" href="visite3d.html" role="listitem">
+    <div class="hero-feat-icon" aria-hidden="true">🔮</div>
+    <div class="hero-feat-label" data-i18n="feat.3d">Visite 3D</div>
+    <div class="hero-feat-sub"   data-i18n="feat.3d.sub">Explorez en immersion</div>
   </a>
 </div>
 
 <!-- ══ FOOTER ══ -->
-<footer>
+<footer role="contentinfo">
   <div class="footer-grid">
+
     <div class="footer-brand">
-      <a class="logo" href="index.html">BIG MAHMOUD</a>
-      <p>Café & Restaurant premium à El Jem, Tunisie.</p>
+      <a class="logo footer-logo" href="index.html" aria-label="Big Mahmoud">
+        BIG MAHMOUD
+      </a>
+      <p data-i18n="footer.tagline">Café &amp; Restaurant premium à El Jem, Tunisie.</p>
+
+      <div class="footer-hours">
+        <i class="fas fa-clock" aria-hidden="true"></i>
+        <span data-firebase="heroHours">Ouvert 24h/24 — 7j/7</span>
+      </div>
+
       <div class="social-links">
-        <a href="https://www.instagram.com/big__mahmoud/" target="_blank" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=61586520484625"
+           target="_blank" rel="noopener"
+           class="social-link" aria-label="Facebook Big Mahmoud">
+          <i class="fab fa-facebook-f" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.instagram.com/big__mahmoud/"
+           target="_blank" rel="noopener"
+           class="social-link" aria-label="Instagram Big Mahmoud">
+          <i class="fab fa-instagram" aria-hidden="true"></i>
+        </a>
+        <a href="https://wa.me/21621006219"
+           target="_blank" rel="noopener"
+           class="social-link" aria-label="WhatsApp Big Mahmoud">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        </a>
+        <a href="tel:+21621006219"
+           class="social-link" aria-label="Appeler Big Mahmoud">
+          <i class="fas fa-phone" aria-hidden="true"></i>
+        </a>
       </div>
     </div>
-    <div class="footer-col"><h4>Navigation</h4><ul>
-      <li><a href="menu.html">Menu</a></li>
-      <li><a href="reservation.html">Réservation</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="visite3d.html">Visite 3D</a></li>
-    </ul></div>
-    <div class="footer-col"><h4>Informations</h4><ul>
-      <li><a href="faq.html">FAQ</a></li>
-      <li><a onclick="showCookies()">Politique des cookies</a></li>
-      <li><a onclick="showLegal()">Mentions légales</a></li>
-    </ul></div>
+
+    <div class="footer-col">
+      <h3 data-i18n="footer.nav">Navigation</h3>
+      <ul>
+        <li><a href="menu.html"        data-i18n="nav.menu">Menu</a></li>
+        <li><a href="reservation.html" data-i18n="nav.reservation">Réservation</a></li>
+        <li><a href="evenements.html"  data-i18n="nav.events">Événements</a></li>
+        <li><a href="contact.html"     data-i18n="nav.contact">Contact</a></li>
+        <li><a href="visite3d.html"    data-i18n="nav.visit3d">Visite 3D</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3 data-i18n="footer.info">Informations</h3>
+      <ul>
+        <li><a role="button" tabindex="0" onclick="showCookies()" data-i18n="footer.cookies">Politique des cookies</a></li>
+        <li><a role="button" tabindex="0" onclick="showLegal()"   data-i18n="footer.legal">Mentions légales</a></li>
+        <li><a href="sitemap.xml">Sitemap</a></li>
+      </ul>
+    </div>
+
   </div>
-  <div class="footer-bottom"><p>© 2026 BIG MAHMOUD — Tous droits réservés</p></div>
+
+  <div class="footer-bottom">
+    <p data-i18n="footer.copy">© 2026 BIG MAHMOUD — El Jem, Tunisie</p>
+  </div>
 </footer>
 
-<!-- ══ ÉLÉMENTS PERSISTANTS ══ -->
-<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">
-  <i class="fas fa-chevron-up"></i>
-</button>
-<a href="https://wa.me/21621006219" id="wa-float" aria-label="WhatsApp" target="_blank" rel="noopener">
-  <i class="fab fa-whatsapp"></i>
+<!-- ══ FLOTTANTS ══ -->
+
+<!-- WhatsApp flottant avec message pré-rempli -->
+<a href="https://wa.me/21621006219?text=Bonjour%20Big%20Mahmoud%2C%20je%20voudrais%20réserver%20une%20table."
+   id="wa-float"
+   aria-label="Réserver via WhatsApp"
+   target="_blank" rel="noopener">
+  <i class="fab fa-whatsapp" aria-hidden="true"></i>
+  <span class="wa-label" data-i18n="wa.label">Réserver</span>
 </a>
 
-<script src="script.js"></script>
+<!-- Bouton appel téléphonique -->
+<a href="tel:+21621006219" id="call-float" aria-label="Appeler Big Mahmoud">
+  <i class="fas fa-phone" aria-hidden="true"></i>
+</a>
+
+<!-- Retour en haut -->
+<button id="back-top"
+        onclick="window.scrollTo({top:0,behavior:'smooth'})"
+        aria-label="Retour en haut">
+  <i class="fas fa-chevron-up" aria-hidden="true"></i>
+</button>
+
+<!-- Ripple tap feedback -->
+<div id="ripple-container" aria-hidden="true"></div>
+
+<!-- Toast notifications -->
+<div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+<script src="script.js" defer></script>
 </body>
 </html>

@@ -12,10 +12,36 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
+
+  <!-- ══ FIREBASE ══ -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey:            "AIzaSyBxAIJaqfigz9X2vZ_x8fJuK2RD8wgQ9-A",
+      authDomain:        "bigmahmoud-b5659.firebaseapp.com",
+      projectId:         "bigmahmoud-b5659",
+      storageBucket:     "bigmahmoud-b5659.firebasestorage.app",
+      messagingSenderId: "88480505979",
+      appId:             "1:88480505979:web:41e35cc41dbfa1a834c2de"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db  = getFirestore(app);
+
+    onSnapshot(doc(db, "public_content", "home"), (snap) => {
+      if (!snap.exists()) return;
+      const data = snap.data();
+      if (data.heroHours) {
+        document.querySelectorAll("[data-firebase='heroHours']")
+          .forEach(el => el.textContent = data.heroHours);
+      }
+    });
+  </script>
 </head>
 <body class="bg-alt">
 
-<!-- ══ LOADER ══ -->
 <div id="loader">
   <div class="loader-inner">
     <div class="loader-logo">BIG MAHMOUD</div>
@@ -25,40 +51,32 @@
 
 <div id="scroll-indicator"></div>
 
-<!-- ══ NAVBAR ══ -->
 <nav id="navbar">
   <a class="logo" href="index.html">BIG MAHMOUD</a>
   <ul class="nav-links">
     <li><a href="index.html">Accueil</a></li>
     <li><a href="menu.html">Menu</a></li>
-    <li><a href="galerie.html">Galerie</a></li>
     <li><a href="evenements.html">Événements</a></li>
-    <li><a href="reservation.html">Réservation</a></li>
+    <li><a href="reservation.html" class="active">Réservation</a></li>
     <li><a href="contact.html">Contact</a></li>
     <li><a href="visite3d.html">Visite 3D</a></li>
-    <li><a href="faq.html">FAQ</a></li>
   </ul>
   <div class="nav-right">
     <a class="btn-reserve-nav" href="reservation.html">Réserver</a>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html">Accueil</a>
   <a href="menu.html">Menu</a>
-  <a href="galerie.html">Galerie</a>
   <a href="evenements.html">Événements</a>
   <a href="reservation.html">Réservation</a>
   <a href="contact.html">Contact</a>
   <a href="visite3d.html">Visite 3D</a>
-  <a href="faq.html">FAQ</a>
   <div class="mob-footer">+216 21 006 219 &nbsp;·&nbsp; El Jem</div>
 </div>
 
-<!-- ══ CONTENU ══ -->
 <div class="section">
   <p class="section-sub">✦ Réservez ✦</p>
   <h2 class="section-title reveal">Votre table</h2>
@@ -91,20 +109,20 @@
   </div>
 </div>
 
-<!-- ══ FOOTER ══ -->
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
       <a class="logo" href="index.html">BIG MAHMOUD</a>
       <p>Café & Restaurant premium à El Jem, Tunisie.</p>
       <div class="social-links">
-        <a href="https://www.instagram.com/big__mahmoud/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=61586520484625" target="_blank" rel="noopener" class="social-link" aria-label="Facebook Big Mahmoud"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://wa.me/21621006219" target="_blank" rel="noopener" class="social-link" aria-label="WhatsApp Big Mahmoud"><i class="fab fa-whatsapp"></i></a>
+<a href="https://www.instagram.com/big__mahmoud/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
       </div>
     </div>
     <div class="footer-col"><h4>Navigation</h4><ul>
       <li><a href="menu.html">Menu</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li><a href="faq.html">FAQ</a></li>
     </ul></div>
     <div class="footer-col"><h4>Infos</h4><ul>
       <li><a onclick="showCookies()">Cookies</a></li>
@@ -114,13 +132,72 @@
   <div class="footer-bottom"><p>© 2026 BIG MAHMOUD — Tous droits réservés</p></div>
 </footer>
 
-<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">
-  <i class="fas fa-chevron-up"></i>
-</button>
-<a href="https://wa.me/21621006219" id="wa-float" aria-label="WhatsApp" target="_blank" rel="noopener">
-  <i class="fab fa-whatsapp"></i>
-</a>
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut"><i class="fas fa-chevron-up"></i></button>
+<a href="https://wa.me/21621006219" id="wa-float" aria-label="WhatsApp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
 
 <script src="script.js"></script>
+
+<!-- ══ FIREBASE RESERVATIONS ══ -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script>
+  // Evite double init si déjà initialisé
+  if (!firebase.apps.length) {
+    firebase.initializeApp({
+      apiKey:            "AIzaSyBxAIJaqfigz9X2vZ_x8fJuK2RD8wgQ9-A",
+      authDomain:        "bigmahmoud-b5659.firebaseapp.com",
+      projectId:         "bigmahmoud-b5659",
+      storageBucket:     "bigmahmoud-b5659.firebasestorage.app",
+      messagingSenderId: "88480505979",
+      appId:             "1:88480505979:web:41e35cc41dbfa1a834c2de"
+    });
+  }
+  const db = firebase.firestore();
+
+  window.submitForm = async () => {
+    const name   = document.getElementById("f_name")?.value.trim();
+    const phone  = document.getElementById("f_phone")?.value.trim();
+    const date   = document.getElementById("f_date")?.value;
+    const guests = document.getElementById("f_guests")?.value;
+    const note   = document.getElementById("f_note")?.value.trim();
+
+    if (!name || !phone || !date) {
+      alert("Merci de remplir votre nom, téléphone et date.");
+      return;
+    }
+
+    try {
+      // 1. Sauvegarder dans Firestore
+      await db.collection("reservations").add({
+        name, phone, date, guests, note,
+        status:    "pending",
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      // 2. Ouvrir WhatsApp avec résumé
+      const msg = encodeURIComponent(
+        `Bonjour Big Mahmoud 👋\nJe voudrais réserver une table :\n👤 Nom : ${name}\n📅 Date : ${date}\n👥 Personnes : ${guests}\n📝 Note : ${note || "—"}`
+      );
+      window.open(`https://wa.me/21621006219?text=${msg}`, "_blank");
+
+      // 3. Afficher succès
+      document.getElementById("form-container").style.display = "none";
+      document.getElementById("form-success").style.display   = "block";
+
+    } catch (err) {
+      console.error(err);
+      alert("Erreur lors de l'enregistrement. Réessaie.");
+    }
+  };
+
+  window.resetForm = () => {
+    document.getElementById("form-container").style.display = "block";
+    document.getElementById("form-success").style.display   = "none";
+    ["f_name","f_phone","f_date","f_note"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = "";
+    });
+  };
+</script>
 </body>
 </html>

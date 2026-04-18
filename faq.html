@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes, viewport-fit=cover">
   <title>FAQ | Big Mahmoud</title>
-  <meta name="description" content="Questions fréquentes sur Big Mahmoud — réservation, livraison, paiement, parking, événements.">
+  <meta name="description" content="Questions fréquentes sur Big Mahmoud — réservation, horaires, menu, chicha, El Jem.">
   <meta name="theme-color" content="#D4AF37">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='72' text-anchor='middle' font-family='Georgia' font-size='60' fill='%23D4AF37' font-weight='bold'%3EBM%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,10 +12,148 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <style>
+    /* ── FAQ Accordion ── */
+    .faq-list {
+      max-width: 780px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
 
-<!-- ══ LOADER ══ -->
+    .faq-item {
+      border: 1px solid rgba(212,175,55,0.2);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+
+    .faq-item.open {
+      border-color: rgba(212,175,55,0.55);
+      background: rgba(212,175,55,0.04);
+    }
+
+    .faq-q {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 24px;
+      cursor: pointer;
+      user-select: none;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--text);
+      transition: color 0.3s;
+    }
+
+    .faq-item.open .faq-q { color: var(--gold); }
+
+    .faq-q-icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border: 1.5px solid rgba(212,175,55,0.4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: var(--gold);
+      transition: transform 0.35s, background 0.3s, border-color 0.3s;
+    }
+
+    .faq-item.open .faq-q-icon {
+      transform: rotate(45deg);
+      background: var(--gold);
+      color: #000;
+      border-color: var(--gold);
+    }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s;
+      padding: 0 24px;
+      color: var(--text-muted);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+
+    .faq-item.open .faq-a {
+      max-height: 300px;
+      padding: 0 24px 22px;
+    }
+
+    .faq-a a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .faq-a a:hover { text-decoration: underline; }
+
+    /* ── Category label ── */
+    .faq-category {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 40px 0 16px;
+      opacity: 0.7;
+    }
+    .faq-category:first-child { margin-top: 0; }
+
+    /* ── CTA bottom ── */
+    .faq-cta {
+      text-align: center;
+      margin-top: 60px;
+    }
+    .faq-cta p {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+    }
+  </style>
+
+  <!-- ══ FIREBASE ══ -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script>
+    if (!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey:            "AIzaSyBxAIJaqfigz9X2vZ_x8fJuK2RD8wgQ9-A",
+        authDomain:        "bigmahmoud-b5659.firebaseapp.com",
+        projectId:         "bigmahmoud-b5659",
+        storageBucket:     "bigmahmoud-b5659.firebasestorage.app",
+        messagingSenderId: "88480505979",
+        appId:             "1:88480505979:web:41e35cc41dbfa1a834c2de"
+      });
+    }
+    const db = firebase.firestore();
+    db.collection("public_content").doc("home").onSnapshot((snap) => {
+      if (!snap.exists) return;
+      const data = snap.data();
+      if (data.heroHours) {
+        document.querySelectorAll("[data-firebase='heroHours']")
+          .forEach(el => el.textContent = data.heroHours);
+      }
+      if (data.heroImageUrl) {
+        const heroBg = document.getElementById("heroBg");
+        if (heroBg) heroBg.style.backgroundImage = "url('" + data.heroImageUrl + "')";
+      }
+      if (data.heroTitleMain) document.querySelectorAll("[data-firebase='heroTitleMain']").forEach(el => el.textContent = data.heroTitleMain);
+      if (data.heroTitleGold) document.querySelectorAll("[data-firebase='heroTitleGold']").forEach(el => el.textContent = data.heroTitleGold);
+      if (data.heroSubtitle)  document.querySelectorAll("[data-firebase='heroSubtitle']").forEach(el => el.textContent = data.heroSubtitle);
+    });
+  </script>
+</head>
+<body class="bg-alt">
+
 <div id="loader">
   <div class="loader-inner">
     <div class="loader-logo">BIG MAHMOUD</div>
@@ -25,76 +163,170 @@
 
 <div id="scroll-indicator"></div>
 
-<!-- ══ NAVBAR ══ -->
 <nav id="navbar">
   <a class="logo" href="index.html">BIG MAHMOUD</a>
   <ul class="nav-links">
     <li><a href="index.html">Accueil</a></li>
     <li><a href="menu.html">Menu</a></li>
-    <li><a href="galerie.html">Galerie</a></li>
     <li><a href="evenements.html">Événements</a></li>
     <li><a href="reservation.html">Réservation</a></li>
     <li><a href="contact.html">Contact</a></li>
     <li><a href="visite3d.html">Visite 3D</a></li>
-    <li><a href="faq.html">FAQ</a></li>
   </ul>
   <div class="nav-right">
     <a class="btn-reserve-nav" href="reservation.html">Réserver</a>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html">Accueil</a>
   <a href="menu.html">Menu</a>
-  <a href="galerie.html">Galerie</a>
   <a href="evenements.html">Événements</a>
   <a href="reservation.html">Réservation</a>
   <a href="contact.html">Contact</a>
   <a href="visite3d.html">Visite 3D</a>
-  <a href="faq.html">FAQ</a>
   <div class="mob-footer">+216 21 006 219 &nbsp;·&nbsp; El Jem</div>
 </div>
 
 <!-- ══ CONTENU ══ -->
 <div class="section">
-  <p class="section-sub">✦ Questions ✦</p>
+  <p class="section-sub">✦ Questions fréquentes ✦</p>
   <h2 class="section-title reveal">FAQ</h2>
   <div class="divider reveal"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
+
   <div class="faq-list reveal">
+
+    <!-- Réservation -->
+    <p class="faq-category">Réservation</p>
+
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)"><span>Faut-il réserver à l'avance ?</span><i class="fas fa-plus"></i></div>
-      <div class="faq-a">Recommandé le week-end et pour les groupes de 4 personnes ou plus.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Comment réserver une table ?
+        <span class="faq-q-icon"><i class="fas fa-plus"></i></span>
+      </div>
+      <div class="faq-a">
+        Remplissez notre <a href="reservation.html">formulaire en ligne</a> ou contactez-nous directement sur WhatsApp au <a href="https://wa.me/21621006219" target="_blank">+216 21 006 219</a>. Votre demande sera confirmée dans les plus brefs délais.
+      </div>
     </div>
+
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)"><span>Proposez-vous la livraison ?</span><i class="fas fa-plus"></i></div>
-      <div class="faq-a">Oui, dans un rayon de 5 km. Contactez-nous directement.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Faut-il réserver à l'avance ?
+        <span class="faq-q-icon"><i class="fas fa-plus"></i></span>
+      </div>
+      <div class="faq-a">
+        La réservation est recommandée, surtout le week-end et lors des événements (Ramadan, matchs, anniversaires). Pour les groupes de 5 personnes et plus, elle est indispensable.
+      </div>
     </div>
+
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)"><span>Quels modes de paiement ?</span><i class="fas fa-plus"></i></div>
-      <div class="faq-a">Espèces, carte bancaire, D17.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Puis-je annuler ou modifier ma réservation ?
+        <span class="faq-q-icon"><i class="fas fa-plus"></i></span>
+      </div>
+      <div class="faq-a">
+        Oui, contactez-nous sur WhatsApp au moins 2 heures avant votre arrivée pour toute modification ou annulation.
+      </div>
     </div>
+
+    <!-- Horaires & Accès -->
+    <p class="faq-category">Horaires & Accès</p>
+
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)"><span>Parking ?</span><i class="fas fa-plus"></i></div>
-      <div class="faq-a">Gratuit, juste à côté.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Quels sont vos horaires d'ouverture ?
+        <span class="faq-q-icon"><i class="fas fa-plus"></i></span>
+      </div>
+      <div class="faq-a">
+        Nous sommes ouverts tous les jours. Nous sommes ouverts 24h/24, 7 jours sur 7.
+      </div>
     </div>
+
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)"><span>Y a-t-il une aire de jeux pour enfants ?</span><i class="fas fa-plus"></i></div>
-      <div class="faq-a">Oui, une aire de jeux est disponible. Visitez-la en 3D depuis notre page <a href="visite3d.html" style="color:var(--gold);">Visite 3D</a>.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Où êtes-vous situés ?
+        <span class="faq-q-icon"><i class="fas fa-plus"></i></span>
+      </div>
+      <div class="faq-a">
+        Nous sommes situés Avenue Hedi Chaker, El Jem 5160, Tunisie. Retrouvez-nous facilement via <a href="https://www.google.com/maps/dir//Big+mahmoud,+Av.+Hedi+Chaker,+El+Jem+5160/@35.2994017,10.6931274,17z" target="_blank">Google Maps</a> ou consultez la <a href="contact.html">page Contact</a>.
+      </div>
     </div>
+
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)"><span>Peut-on organiser un événement privé ?</span><i class="fas fa-plus"></i></div>
-      <div class="faq-a">Oui, nous organisons anniversaires, réunions et soirées privées sur mesure. Réservez via WhatsApp.</div>
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Y a-t-il un parking à proximité ?
+        <span class="faq-q-icon"><i class="fas fa-plus"></i></span>
+      </div>
+      <div class="faq-a">
+        Oui, des places de stationnement sont disponibles sur l'Avenue Hedi Chaker, directement devant l'établissement.
+      </div>
     </div>
+
+    <!-- Menu & Offres -->
+    <p class="faq-category">Menu & Offres</p>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Proposez-vous des options végétariennes ?
+        <span class="faq-q-icon"><i class="fas fa-plus"></i></span>
+      </div>
+      <div class="faq-a">
+        Oui, notre carte comprend plusieurs options végétariennes : pizza végétarienne, salades, pâtes, desserts et boissons. Consultez notre <a href="menu.html">menu complet</a>.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Proposez-vous des formules brunch ?
+        <span class="faq-q-icon"><i class="fas fa-plus"></i></span>
+      </div>
+      <div class="faq-a">
+        Absolument ! Nous proposons plusieurs formules : Beau Matin, Délice du Matin, Duo et le grand Brunch Big Mahmoud. Idéal pour un moment en famille ou entre amis.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Servez-vous de la chicha ?
+        <span class="faq-q-icon"><i class="fas fa-plus"></i></span>
+      </div>
+      <div class="faq-a">
+        Oui, nous proposons une sélection de chichas premium : Love, Cheikh Mani, Raisin, Pomme, Menthe, Raisin Menthe et Cheikh, à partir de 8 DT.
+      </div>
+    </div>
+
+    <!-- Événements -->
+    <p class="faq-category">Événements</p>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Organisez-vous des anniversaires ?
+        <span class="faq-q-icon"><i class="fas fa-plus"></i></span>
+      </div>
+      <div class="faq-a">
+        Oui, nous organisons des anniversaires sur mesure. Contactez-nous sur WhatsApp pour discuter de votre événement et de la décoration souhaitée.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Diffusez-vous les matchs de football ?
+        <span class="faq-q-icon"><i class="fas fa-plus"></i></span>
+      </div>
+      <div class="faq-a">
+        Oui, nous diffusons les grandes rencontres sur grands écrans HD. Réservez votre place à l'avance pour les matchs importants.
+      </div>
+    </div>
+
   </div>
 
-  <div class="testimonial-message reveal">
-    <i class="fas fa-star" style="color: var(--gold);"></i>
-    <p style="font-size:1.05rem; margin-top:10px;">Nouveau à El Jem — soyez parmi les premiers à vivre l'expérience Big Mahmoud !</p>
-    <a href="https://www.google.com/search?newwindow=1&q=Big+mahmoud+Reviews"
-       target="_blank" class="btn-review">⭐ Laissez votre avis sur Google</a>
+  <!-- CTA -->
+  <div class="faq-cta reveal">
+    <p>Vous n'avez pas trouvé votre réponse ?</p>
+    <a class="btn-primary" href="https://wa.me/21621006219" target="_blank" rel="noopener">
+      Contactez-nous <i class="fab fa-whatsapp" style="margin-left:6px"></i>
+    </a>
   </div>
 </div>
 
@@ -105,7 +337,9 @@
       <a class="logo" href="index.html">BIG MAHMOUD</a>
       <p>Café & Restaurant premium à El Jem, Tunisie.</p>
       <div class="social-links">
-        <a href="https://www.instagram.com/big__mahmoud/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=61586520484625" target="_blank" rel="noopener" class="social-link" aria-label="Facebook Big Mahmoud"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://wa.me/21621006219" target="_blank" rel="noopener" class="social-link" aria-label="WhatsApp Big Mahmoud"><i class="fab fa-whatsapp"></i></a>
+<a href="https://www.instagram.com/big__mahmoud/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
       </div>
     </div>
     <div class="footer-col"><h4>Navigation</h4><ul>
@@ -121,13 +355,19 @@
   <div class="footer-bottom"><p>© 2026 BIG MAHMOUD — Tous droits réservés</p></div>
 </footer>
 
-<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">
-  <i class="fas fa-chevron-up"></i>
-</button>
-<a href="https://wa.me/21621006219" id="wa-float" aria-label="WhatsApp" target="_blank" rel="noopener">
-  <i class="fab fa-whatsapp"></i>
-</a>
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut"><i class="fas fa-chevron-up"></i></button>
+<a href="https://wa.me/21621006219" id="wa-float" aria-label="WhatsApp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
 
 <script src="script.js"></script>
+<script>
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    // Ferme tous
+    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+    // Ouvre si était fermé
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
 </body>
 </html>

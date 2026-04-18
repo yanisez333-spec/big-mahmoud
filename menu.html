@@ -12,10 +12,41 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
+
+  <!-- ══ FIREBASE ══ -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script>
+    if (!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey:            "AIzaSyBxAIJaqfigz9X2vZ_x8fJuK2RD8wgQ9-A",
+        authDomain:        "bigmahmoud-b5659.firebaseapp.com",
+        projectId:         "bigmahmoud-b5659",
+        storageBucket:     "bigmahmoud-b5659.firebasestorage.app",
+        messagingSenderId: "88480505979",
+        appId:             "1:88480505979:web:41e35cc41dbfa1a834c2de"
+      });
+    }
+    const db = firebase.firestore();
+    db.collection("public_content").doc("home").onSnapshot((snap) => {
+      if (!snap.exists) return;
+      const data = snap.data();
+      if (data.heroHours) {
+        document.querySelectorAll("[data-firebase='heroHours']")
+          .forEach(el => el.textContent = data.heroHours);
+      }
+      if (data.heroImageUrl) {
+        const heroBg = document.getElementById("heroBg");
+        if (heroBg) heroBg.style.backgroundImage = "url('" + data.heroImageUrl + "')";
+      }
+      if (data.heroTitleMain) document.querySelectorAll("[data-firebase='heroTitleMain']").forEach(el => el.textContent = data.heroTitleMain);
+      if (data.heroTitleGold) document.querySelectorAll("[data-firebase='heroTitleGold']").forEach(el => el.textContent = data.heroTitleGold);
+      if (data.heroSubtitle)  document.querySelectorAll("[data-firebase='heroSubtitle']").forEach(el => el.textContent = data.heroSubtitle);
+    });
+  </script>
 </head>
 <body class="bg-alt">
 
-<!-- ══ LOADER ══ -->
 <div id="loader">
   <div class="loader-inner">
     <div class="loader-logo">BIG MAHMOUD</div>
@@ -25,41 +56,32 @@
 
 <div id="scroll-indicator"></div>
 
-<!-- ══ NAVBAR ══ -->
 <nav id="navbar">
   <a class="logo" href="index.html">BIG MAHMOUD</a>
   <ul class="nav-links">
     <li><a href="index.html">Accueil</a></li>
-    <li><a href="menu.html">Menu</a></li>
-    <li><a href="galerie.html">Galerie</a></li>
+    <li><a href="menu.html" class="active">Menu</a></li>
     <li><a href="evenements.html">Événements</a></li>
     <li><a href="reservation.html">Réservation</a></li>
     <li><a href="contact.html">Contact</a></li>
     <li><a href="visite3d.html">Visite 3D</a></li>
-    <li><a href="faq.html">FAQ</a></li>
   </ul>
   <div class="nav-right">
     <a class="btn-reserve-nav" href="reservation.html">Réserver</a>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
-<!-- ══ MENU MOBILE ══ -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html">Accueil</a>
   <a href="menu.html">Menu</a>
-  <a href="galerie.html">Galerie</a>
   <a href="evenements.html">Événements</a>
   <a href="reservation.html">Réservation</a>
   <a href="contact.html">Contact</a>
   <a href="visite3d.html">Visite 3D</a>
-  <a href="faq.html">FAQ</a>
   <div class="mob-footer">+216 21 006 219 &nbsp;·&nbsp; El Jem</div>
 </div>
 
-<!-- ══ CONTENU ══ -->
 <div class="section">
   <p class="section-sub">✦ Notre carte ✦</p>
   <h2 class="section-title reveal">Menu</h2>
@@ -75,8 +97,8 @@
 
   <div class="menu-grid" id="menuGrid">
     <!-- CAFÉ & BOISSONS -->
-    <div class="menu-card" data-category="cafe"><div class="bestseller">⭐ Best Seller</div><div class="menu-card-name">Espresso</div><div class="menu-card-desc">Café corsé 100% arabica</div><div class="menu-card-footer"><div class="price">3,500 DT</div></div></div>
-    <div class="menu-card" data-category="cafe"><div class="menu-card-name">Capucin</div><div class="menu-card-desc">Café traditionnel doux</div><div class="menu-card-footer"><div class="price">4,000 DT</div></div></div>
+    <div class="menu-card" data-category="cafe"><div class="menu-card-name">Espresso</div><div class="menu-card-footer"><div class="price">3,500 DT</div></div></div>
+    <div class="menu-card" data-category="cafe"><div class="menu-card-name">Capucin</div><div class="menu-card-footer"><div class="price">4,000 DT</div></div></div>
     <div class="menu-card" data-category="cafe"><div class="menu-card-name">Café Turc</div><div class="menu-card-footer"><div class="price">4,500 DT</div></div></div>
     <div class="menu-card" data-category="cafe"><div class="menu-card-name">Cappuccino</div><div class="menu-card-footer"><div class="price">6,500 DT</div></div></div>
     <div class="menu-card" data-category="cafe"><div class="menu-card-name">Ice Coffee</div><div class="menu-card-footer"><div class="price">6,500 DT</div></div></div>
@@ -84,7 +106,7 @@
     <div class="menu-card" data-category="cafe"><div class="menu-card-name">Thé Vert</div><div class="menu-card-footer"><div class="price">2,500 DT</div></div></div>
     <div class="menu-card" data-category="cafe"><div class="menu-card-name">Thé Amandes</div><div class="menu-card-footer"><div class="price">4,500 DT</div></div></div>
     <div class="menu-card" data-category="cafe"><div class="menu-card-name">Thé Pignon</div><div class="menu-card-footer"><div class="price">8,500 DT</div></div></div>
-    <div class="menu-card" data-category="cafe"><div class="menu-card-name">Milkshake</div><div class="menu-card-desc">Plusieurs parfums</div><div class="menu-card-footer"><div class="price">6,500–9,000 DT</div></div></div>
+    <div class="menu-card" data-category="cafe"><div class="menu-card-name">Milkshake</div><div class="menu-card-footer"><div class="price">6,500–9,000 DT</div></div></div>
     <div class="menu-card" data-category="cafe"><div class="menu-card-name">Jus Fraise</div><div class="menu-card-footer"><div class="price">6,000 DT</div></div></div>
     <div class="menu-card" data-category="cafe"><div class="menu-card-name">Jus Ananas</div><div class="menu-card-footer"><div class="price">7,000 DT</div></div></div>
     <div class="menu-card" data-category="cafe"><div class="menu-card-name">Jus Orange</div><div class="menu-card-footer"><div class="price">4,500 DT</div></div></div>
@@ -92,30 +114,30 @@
     <div class="menu-card" data-category="cafe"><div class="menu-card-name">Mojito / Cocktail</div><div class="menu-card-footer"><div class="price">7,000–12,500 DT</div></div></div>
     <div class="menu-card" data-category="cafe"><div class="menu-card-name">Smoothie</div><div class="menu-card-footer"><div class="price">8,500 DT</div></div></div>
     <!-- SALÉ -->
-    <div class="menu-card" data-category="sale"><div class="menu-card-name">Beau matin</div><div class="menu-card-desc">Café, viennoiserie, eau 0,5L, jus</div><div class="menu-card-footer"><div class="price">9,500 DT</div></div></div>
-    <div class="menu-card" data-category="sale"><div class="menu-card-name">Délice du matin</div><div class="menu-card-desc">Café, eau, viennoiserie, salade fruits, yaourt granola, confiture, beurre, chamia, chocolat, omelette, jus</div><div class="menu-card-footer"><div class="price">17,500 DT</div></div></div>
-    <div class="menu-card" data-category="sale"><div class="menu-card-name">Duo</div><div class="menu-card-desc">2 cafés, 2 jus, 2 viennoiseries, 2 crêpes, eau 1L, charcuterie, toast, légumes, 2 omelettes, 2 yaourts, miel, chamia, chocolat</div><div class="menu-card-footer"><div class="price">32,500 DT</div></div></div>
-    <div class="menu-card" data-category="sale"><div class="bestseller">⭐ Best Seller</div><div class="menu-card-name">Brunch Big Mahmoud</div><div class="menu-card-desc">4 cafés, 2 eaux, 4 jus, viennoiseries, mini jwajem, gaufres, crêpes, brownies, fondant, cookies, omelette, poulet, pain, ojja</div><div class="menu-card-footer"><div class="price">78,000 DT</div></div></div>
-    <div class="menu-card" data-category="sale"><div class="menu-card-name">Pizza Margarita</div><div class="menu-card-desc">Sauce tomate, mozzarella, origan, olives, tomates cerises</div><div class="menu-card-footer"><div class="price">15 DT</div></div></div>
-    <div class="menu-card" data-category="sale"><div class="menu-card-name">Pizza Thono</div><div class="menu-card-desc">Thon, mozzarella, olives, tomates cerises</div><div class="menu-card-footer"><div class="price">19 DT</div></div></div>
+    <div class="menu-card" data-category="sale"><div class="menu-card-name">Beau matin</div><div class="menu-card-footer"><div class="price">9,500 DT</div></div></div>
+    <div class="menu-card" data-category="sale"><div class="menu-card-name">Délice du matin</div><div class="menu-card-footer"><div class="price">17,500 DT</div></div></div>
+    <div class="menu-card" data-category="sale"><div class="menu-card-name">Duo</div><div class="menu-card-footer"><div class="price">32,500 DT</div></div></div>
+    <div class="menu-card" data-category="sale"><div class="menu-card-name">Brunch Big Mahmoud</div><div class="menu-card-footer"><div class="price">78,000 DT</div></div></div>
+    <div class="menu-card" data-category="sale"><div class="menu-card-name">Pizza Margarita</div><div class="menu-card-footer"><div class="price">15 DT</div></div></div>
+    <div class="menu-card" data-category="sale"><div class="menu-card-name">Pizza Thono</div><div class="menu-card-footer"><div class="price">19 DT</div></div></div>
     <div class="menu-card" data-category="sale"><div class="menu-card-name">Pizza Peperoni</div><div class="menu-card-footer"><div class="price">19 DT</div></div></div>
-    <div class="menu-card" data-category="sale"><div class="menu-card-name">Pizza Turck</div><div class="menu-card-desc">Viande hachée, mozzarella, olives, piment frais</div><div class="menu-card-footer"><div class="price">21 DT</div></div></div>
-    <div class="menu-card" data-category="sale"><div class="menu-card-name">Pizza Al Pollo</div><div class="menu-card-desc">Poulet, mozzarella, piment, basilic</div><div class="menu-card-footer"><div class="price">20 DT</div></div></div>
-    <div class="menu-card" data-category="sale"><div class="menu-card-name">Pizza Végétarienne</div><div class="menu-card-desc">Aubergine, courgette, oignon, champignon, olives</div><div class="menu-card-footer"><div class="price">16 DT</div></div></div>
-    <div class="menu-card" data-category="sale"><div class="menu-card-name">Pizza Quatre Saisons</div><div class="menu-card-desc">Jambon fumé, champignon, olives, oignon, piment</div><div class="menu-card-footer"><div class="price">19 DT</div></div></div>
-    <div class="menu-card" data-category="sale"><div class="menu-card-name">Pizza Gambari Pesto</div><div class="menu-card-desc">Crevettes, pesto, crème, mozzarella, parmesan</div><div class="menu-card-footer"><div class="price">23 DT</div></div></div>
-    <div class="menu-card" data-category="sale"><div class="menu-card-name">Pizza 4 Fromages</div><div class="menu-card-desc">Crème, mozzarella, parmesan, gruyère, cheddar, ricotta</div><div class="menu-card-footer"><div class="price">21 DT</div></div></div>
-    <div class="menu-card" data-category="sale"><div class="menu-card-name">Panozzo Big Mahmoud</div><div class="menu-card-desc">Sauce ail, pistou, mozzarella, légumes grillés, poulet mariné</div><div class="menu-card-footer"><div class="price">12 DT</div></div></div>
-    <div class="menu-card" data-category="sale"><div class="menu-card-name">Panozzo Diavola</div><div class="menu-card-desc">Peperoni, jambon fumé, mozzarella, légumes grillés, sauce pistou</div><div class="menu-card-footer"><div class="price">11 DT</div></div></div>
-    <div class="menu-card" data-category="sale"><div class="menu-card-name">Croc Viande Hachée</div><div class="menu-card-desc">Mozzarella, laitue, légumes grillés, aubergine, pistou</div><div class="menu-card-footer"><div class="price">13 DT</div></div></div>
+    <div class="menu-card" data-category="sale"><div class="menu-card-name">Pizza Turck</div><div class="menu-card-footer"><div class="price">21 DT</div></div></div>
+    <div class="menu-card" data-category="sale"><div class="menu-card-name">Pizza Al Pollo</div><div class="menu-card-footer"><div class="price">20 DT</div></div></div>
+    <div class="menu-card" data-category="sale"><div class="menu-card-name">Pizza Végétarienne</div><div class="menu-card-footer"><div class="price">16 DT</div></div></div>
+    <div class="menu-card" data-category="sale"><div class="menu-card-name">Pizza Quatre Saisons</div><div class="menu-card-footer"><div class="price">19 DT</div></div></div>
+    <div class="menu-card" data-category="sale"><div class="menu-card-name">Pizza Gambari Pesto</div><div class="menu-card-footer"><div class="price">23 DT</div></div></div>
+    <div class="menu-card" data-category="sale"><div class="menu-card-name">Pizza 4 Fromages</div><div class="menu-card-footer"><div class="price">21 DT</div></div></div>
+    <div class="menu-card" data-category="sale"><div class="menu-card-name">Panozzo Big Mahmoud</div><div class="menu-card-footer"><div class="price">12 DT</div></div></div>
+    <div class="menu-card" data-category="sale"><div class="menu-card-name">Panozzo Diavola</div><div class="menu-card-footer"><div class="price">11 DT</div></div></div>
+    <div class="menu-card" data-category="sale"><div class="menu-card-name">Croc Viande Hachée</div><div class="menu-card-footer"><div class="price">13 DT</div></div></div>
     <div class="menu-card" data-category="sale"><div class="menu-card-name">Calzone Poulet</div><div class="menu-card-footer"><div class="price">12 DT</div></div></div>
     <div class="menu-card" data-category="sale"><div class="menu-card-name">Calzone Viande Hachée</div><div class="menu-card-footer"><div class="price">14 DT</div></div></div>
     <div class="menu-card" data-category="sale"><div class="menu-card-name">Calzone Peperoni</div><div class="menu-card-footer"><div class="price">11 DT</div></div></div>
-    <div class="menu-card" data-category="sale"><div class="menu-card-name">Salade Big Mahmoud</div><div class="menu-card-desc">Légumes, burrata, balsamique, sauce pistou</div><div class="menu-card-footer"><div class="price">18 DT</div></div></div>
-    <div class="menu-card" data-category="sale"><div class="menu-card-name">Salade César</div><div class="menu-card-desc">Poulet mariné, anchois, parmesan, croûtons</div><div class="menu-card-footer"><div class="price">17 DT</div></div></div>
-    <div class="menu-card" data-category="sale"><div class="menu-card-name">Linguine al Pollo</div><div class="menu-card-desc">Linguines crémeuses au poulet, ricotta, tomates cerises</div><div class="menu-card-footer"><div class="price">19 DT</div></div></div>
-    <div class="menu-card" data-category="sale"><div class="menu-card-name">Penne Norvégienne</div><div class="menu-card-desc">Penne crémeuses au saumon, ricotta, tomates cerises</div><div class="menu-card-footer"><div class="price">22 DT</div></div></div>
-    <div class="menu-card" data-category="sale"><div class="menu-card-name">1/4 Poulet grillé</div><div class="menu-card-desc">Garniture au choix, sauce verte ou piment</div><div class="menu-card-footer"><div class="price">16 DT</div></div></div>
+    <div class="menu-card" data-category="sale"><div class="menu-card-name">Salade Big Mahmoud</div><div class="menu-card-footer"><div class="price">18 DT</div></div></div>
+    <div class="menu-card" data-category="sale"><div class="menu-card-name">Salade César</div><div class="menu-card-footer"><div class="price">17 DT</div></div></div>
+    <div class="menu-card" data-category="sale"><div class="menu-card-name">Linguine al Pollo</div><div class="menu-card-footer"><div class="price">19 DT</div></div></div>
+    <div class="menu-card" data-category="sale"><div class="menu-card-name">Penne Norvégienne</div><div class="menu-card-footer"><div class="price">22 DT</div></div></div>
+    <div class="menu-card" data-category="sale"><div class="menu-card-name">1/4 Poulet grillé</div><div class="menu-card-footer"><div class="price">16 DT</div></div></div>
     <div class="menu-card" data-category="sale"><div class="menu-card-name">Poulet entier grillé</div><div class="menu-card-footer"><div class="price">26 DT</div></div></div>
     <!-- SUCRÉ -->
     <div class="menu-card" data-category="sucre"><div class="menu-card-name">Crêpe Nutella</div><div class="menu-card-footer"><div class="price">10,500 DT</div></div></div>
@@ -123,7 +145,7 @@
     <div class="menu-card" data-category="sucre"><div class="menu-card-name">Crêpe Oreo</div><div class="menu-card-footer"><div class="price">10,500 DT</div></div></div>
     <div class="menu-card" data-category="sucre"><div class="menu-card-name">Crêpe Pistache</div><div class="menu-card-footer"><div class="price">11,500 DT</div></div></div>
     <div class="menu-card" data-category="sucre"><div class="menu-card-name">Crêpe Speculos</div><div class="menu-card-footer"><div class="price">10,500 DT</div></div></div>
-    <div class="menu-card" data-category="sucre"><div class="menu-card-name">Boule-Boule (8 boules)</div><div class="menu-card-desc">Nutella, Nutella Banane, Oreo, Pistache, Speculos</div><div class="menu-card-footer"><div class="price">6,000 DT</div></div></div>
+    <div class="menu-card" data-category="sucre"><div class="menu-card-name">Boule-Boule (8 boules)</div><div class="menu-card-footer"><div class="price">6,000 DT</div></div></div>
     <div class="menu-card" data-category="sucre"><div class="menu-card-name">Boule-Boule (16 boules)</div><div class="menu-card-footer"><div class="price">11,000 DT</div></div></div>
     <div class="menu-card" data-category="sucre"><div class="menu-card-name">Bubble Waffle Nutella</div><div class="menu-card-footer"><div class="price">12,500 DT</div></div></div>
     <div class="menu-card" data-category="sucre"><div class="menu-card-name">Bubble Waffle Nutella Banane</div><div class="menu-card-footer"><div class="price">14,000 DT</div></div></div>
@@ -144,14 +166,15 @@
   </div>
 </div>
 
-<!-- ══ FOOTER ══ -->
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
       <a class="logo" href="index.html">BIG MAHMOUD</a>
       <p>Café & Restaurant premium à El Jem, Tunisie.</p>
       <div class="social-links">
-        <a href="https://www.instagram.com/big__mahmoud/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=61586520484625" target="_blank" rel="noopener" class="social-link" aria-label="Facebook Big Mahmoud"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://wa.me/21621006219" target="_blank" rel="noopener" class="social-link" aria-label="WhatsApp Big Mahmoud"><i class="fab fa-whatsapp"></i></a>
+<a href="https://www.instagram.com/big__mahmoud/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
       </div>
     </div>
     <div class="footer-col"><h4>Navigation</h4><ul>
@@ -160,7 +183,6 @@
       <li><a href="visite3d.html">Visite 3D</a></li>
     </ul></div>
     <div class="footer-col"><h4>Infos</h4><ul>
-      <li><a href="faq.html">FAQ</a></li>
       <li><a onclick="showCookies()">Cookies</a></li>
       <li><a onclick="showLegal()">Mentions légales</a></li>
     </ul></div>
@@ -168,12 +190,8 @@
   <div class="footer-bottom"><p>© 2026 BIG MAHMOUD — Tous droits réservés</p></div>
 </footer>
 
-<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">
-  <i class="fas fa-chevron-up"></i>
-</button>
-<a href="https://wa.me/21621006219" id="wa-float" aria-label="WhatsApp" target="_blank" rel="noopener">
-  <i class="fab fa-whatsapp"></i>
-</a>
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut"><i class="fas fa-chevron-up"></i></button>
+<a href="https://wa.me/21621006219" id="wa-float" aria-label="WhatsApp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
 
 <script src="script.js"></script>
 </body>
