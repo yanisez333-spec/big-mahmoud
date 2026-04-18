@@ -417,10 +417,30 @@
 </head>
 <body>
 
-<!-- ══ LOGIN STUB — sera remplacé par Firebase Auth ══ -->
+<!-- ══ LOGIN SCRIPT — pur JS, aucune dépendance ══ -->
 <script>
-  function tryLogin() { /* handled by Firebase Auth below */ }
-  function logout()   { /* handled by Firebase Auth below */ }
+  const MANAGER_PASSWORD = "bigmahmoud2026";
+
+  function tryLogin() {
+    const val = document.getElementById("pwd-input").value;
+    const err = document.getElementById("login-error");
+    if (val === MANAGER_PASSWORD) {
+      document.getElementById("login-screen").style.display = "none";
+      document.getElementById("app").style.display = "block";
+      loadFirebase();
+    } else {
+      err.innerHTML = '<i class="fas fa-circle-exclamation"></i> Mot de passe incorrect';
+      document.getElementById("pwd-input").value = "";
+      document.getElementById("pwd-input").focus();
+      setTimeout(() => err.innerHTML = "", 3000);
+    }
+  }
+
+  function logout() {
+    document.getElementById("app").style.display = "none";
+    document.getElementById("login-screen").style.display = "flex";
+    document.getElementById("pwd-input").value = "";
+  }
 </script>
 
 
@@ -450,7 +470,6 @@
     <div class="topbar-logo">BIG MAHMOUD <span style="color:var(--muted);font-size:.7rem;letter-spacing:.2em;font-family:var(--font-body);margin-left:8px;">MANAGER</span></div>
     <div class="topbar-right">
       <div class="topbar-time" id="clock"></div>
-      <span style="font-size:.75rem;color:var(--muted);font-family:var(--font-mono);" id="user-email"></span>
       <button class="logout-btn" onclick="logout()">
         <i class="fas fa-right-from-bracket"></i> Déconnexion
       </button>
@@ -529,87 +548,32 @@
 <!-- Toasts -->
 <div class="toast-wrap" id="toast-wrap"></div>
 
-<!-- ══ FIREBASE COMPAT + AUTH ══ -->
+<!-- ══ FIREBASE COMPAT ══ -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script>
-  let db   = null;
-  let auth = null;
+  let db = null;
   let allReservations = [];
   let currentFilter   = "all";
   let pendingAction   = null;
 
-  // Init Firebase au chargement
-  if (!firebase.apps.length) {
-    firebase.initializeApp({
-      apiKey:            "AIzaSyBxAIJaqfigz9X2vZ_x8fJuK2RD8wgQ9-A",
-      authDomain:        "bigmahmoud-b5659.firebaseapp.com",
-      projectId:         "bigmahmoud-b5659",
-      storageBucket:     "bigmahmoud-b5659.firebasestorage.app",
-      messagingSenderId: "88480505979",
-      appId:             "1:88480505979:web:41e35cc41dbfa1a834c2de"
-    });
-  }
-  db   = firebase.firestore();
-  auth = firebase.auth();
-
-  // Surveille l'état de connexion
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      document.getElementById("login-screen").style.display = "none";
-      document.getElementById("app").style.display = "block";
-      document.getElementById("user-email").textContent = user.email;
-      startClock();
-      loadReservations();
-    } else {
-      document.getElementById("login-screen").style.display = "flex";
-      document.getElementById("app").style.display = "none";
-    }
-  });
-
-  // ── LOGIN Firebase Auth ──
-  function tryLogin() {
-    const email = document.getElementById("email-input").value.trim();
-    const pwd   = document.getElementById("pwd-input").value;
-    const err   = document.getElementById("login-error");
-    const btn   = document.getElementById("login-btn-el");
-
-    if (!email || !pwd) {
-      err.innerHTML = '<i class="fas fa-circle-exclamation"></i> Remplis email et mot de passe';
-      setTimeout(() => err.innerHTML = "", 3000);
-      return;
-    }
-
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion...';
-    btn.disabled  = true;
-
-    auth.signInWithEmailAndPassword(email, pwd)
-      .then(() => {
-        btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> &nbsp; Accéder';
-        btn.disabled  = false;
-      })
-      .catch((e) => {
-        btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> &nbsp; Accéder';
-        btn.disabled  = false;
-        const msg = e.code === "auth/wrong-password" || e.code === "auth/invalid-credential"
-          ? "Mot de passe incorrect"
-          : e.code === "auth/user-not-found"
-          ? "Email introuvable"
-          : e.code === "auth/too-many-requests"
-          ? "Trop de tentatives, réessaie plus tard"
-          : "Erreur de connexion";
-        err.innerHTML = `<i class="fas fa-circle-exclamation"></i> ${msg}`;
-        setTimeout(() => err.innerHTML = "", 4000);
+  function loadFirebase() {
+    if (!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey:            "AIzaSyBxAIJaqfigz9X2vZ_x8fJuK2RD8wgQ9-A",
+        authDomain:        "bigmahmoud-b5659.firebaseapp.com",
+        projectId:         "bigmahmoud-b5659",
+        storageBucket:     "bigmahmoud-b5659.firebasestorage.app",
+        messagingSenderId: "88480505979",
+        appId:             "1:88480505979:web:41e35cc41dbfa1a834c2de"
       });
+    }
+    db = firebase.firestore();
+    startClock();
+    loadReservations();
   }
 
-  // ── LOGOUT ──
-  function logout() {
-    auth.signOut();
-  }
-
-  function loadFirebase() { /* plus nécessaire, géré par onAuthStateChanged */ }
+  // dummy so app doesn't crash before login
 
   // ── CLOCK ──
   function startClock() {
