@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <rect width="48" height="48" rx="10" fill="#0A0A0B"/>
+  <rect width="48" height="48" rx="10" fill="none" stroke="#D4AF37" stroke-width="1.5" opacity="0.4"/>
+  <text x="24" y="34" text-anchor="middle"
+        font-family="Georgia,serif"
+        font-size="22"
+        fill="#D4AF37"
+        font-weight="bold"
+        letter-spacing="1">BM</text>
+</svg>

@@ -6,44 +6,12 @@
   <title>Galerie | Big Mahmoud</title>
   <meta name="description" content="Galerie photos de Big Mahmoud — ambiance, plats, boissons, décoration.">
   <meta name="theme-color" content="#D4AF37">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='72' text-anchor='middle' font-family='Georgia' font-size='60' fill='%23D4AF37' font-weight='bold'%3EBM%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
-
-  <!-- ══ FIREBASE ══ -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-  <script>
-    if (!firebase.apps.length) {
-      firebase.initializeApp({
-        apiKey:            "AIzaSyBxAIJaqfigz9X2vZ_x8fJuK2RD8wgQ9-A",
-        authDomain:        "bigmahmoud-b5659.firebaseapp.com",
-        projectId:         "bigmahmoud-b5659",
-        storageBucket:     "bigmahmoud-b5659.firebasestorage.app",
-        messagingSenderId: "88480505979",
-        appId:             "1:88480505979:web:41e35cc41dbfa1a834c2de"
-      });
-    }
-    const db = firebase.firestore();
-    db.collection("public_content").doc("home").onSnapshot((snap) => {
-      if (!snap.exists) return;
-      const data = snap.data();
-      if (data.heroHours) {
-        document.querySelectorAll("[data-firebase='heroHours']")
-          .forEach(el => el.textContent = data.heroHours);
-      }
-      if (data.heroImageUrl) {
-        const heroBg = document.getElementById("heroBg");
-        if (heroBg) heroBg.style.backgroundImage = "url('" + data.heroImageUrl + "')";
-      }
-      if (data.heroTitleMain) document.querySelectorAll("[data-firebase='heroTitleMain']").forEach(el => el.textContent = data.heroTitleMain);
-      if (data.heroTitleGold) document.querySelectorAll("[data-firebase='heroTitleGold']").forEach(el => el.textContent = data.heroTitleGold);
-      if (data.heroSubtitle)  document.querySelectorAll("[data-firebase='heroSubtitle']").forEach(el => el.textContent = data.heroSubtitle);
-    });
-  </script>
 </head>
 <body>
 
@@ -79,7 +47,7 @@
   <a href="reservation.html">Réservation</a>
   <a href="contact.html">Contact</a>
   <a href="visite3d.html">Visite 3D</a>
-  <div class="mob-footer">+216 21 006 219 &nbsp;·&nbsp; El Jem</div>
+  <div class="mob-footer">+216 26 740 303 &nbsp;·&nbsp; El Jem</div>
 </div>
 
 <div class="section">
@@ -118,7 +86,7 @@
       <p>Café & Restaurant premium à El Jem, Tunisie.</p>
       <div class="social-links">
                 <a href="https://www.facebook.com/profile.php?id=61586520484625" target="_blank" rel="noopener" class="social-link" aria-label="Facebook Big Mahmoud"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://wa.me/21621006219" target="_blank" rel="noopener" class="social-link" aria-label="WhatsApp Big Mahmoud"><i class="fab fa-whatsapp"></i></a>
+        <a data-wa href="https://wa.me/21621006219" target="_blank" rel="noopener" class="social-link" aria-label="WhatsApp Big Mahmoud"><i class="fab fa-whatsapp"></i></a>
 <a href="https://www.instagram.com/big__mahmoud/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
       </div>
     </div>
@@ -136,8 +104,8 @@
 </footer>
 
 <button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut"><i class="fas fa-chevron-up"></i></button>
-<a href="https://wa.me/21621006219" id="wa-float" aria-label="WhatsApp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+<a data-wa href="https://wa.me/21621006219" id="wa-float" aria-label="WhatsApp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
 
-<script src="script.js"></script>
+<script type="module" src="/src/main.ts"></script>
 </body>
 </html>

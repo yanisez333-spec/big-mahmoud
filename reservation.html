@@ -6,39 +6,13 @@
   <title>Réservation | Big Mahmoud</title>
   <meta name="description" content="Réservez votre table chez Big Mahmoud via WhatsApp. El Jem, Tunisie.">
   <meta name="theme-color" content="#D4AF37">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='72' text-anchor='middle' font-family='Georgia' font-size='60' fill='%23D4AF37' font-weight='bold'%3EBM%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 
-  <!-- ══ FIREBASE ══ -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey:            "AIzaSyBxAIJaqfigz9X2vZ_x8fJuK2RD8wgQ9-A",
-      authDomain:        "bigmahmoud-b5659.firebaseapp.com",
-      projectId:         "bigmahmoud-b5659",
-      storageBucket:     "bigmahmoud-b5659.firebasestorage.app",
-      messagingSenderId: "88480505979",
-      appId:             "1:88480505979:web:41e35cc41dbfa1a834c2de"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db  = getFirestore(app);
-
-    onSnapshot(doc(db, "public_content", "home"), (snap) => {
-      if (!snap.exists()) return;
-      const data = snap.data();
-      if (data.heroHours) {
-        document.querySelectorAll("[data-firebase='heroHours']")
-          .forEach(el => el.textContent = data.heroHours);
-      }
-    });
-  </script>
 </head>
 <body class="bg-alt">
 
@@ -62,7 +36,14 @@
     <li><a href="visite3d.html">Visite 3D</a></li>
   </ul>
   <div class="nav-right">
-    <a class="btn-reserve-nav" href="reservation.html">Réserver</a>
+    <a class="btn-reserve-nav" href="reservation.html" data-i18n="nav.reserve">Réserver</a>
+    <div class="lang-switcher-nav">
+      <button class="lang-btn active" data-lang="fr">FR</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="ar">عر</button>
+      <button class="lang-btn" data-lang="zh">中</button>
+      <button class="lang-btn" data-lang="ko">한</button>
+    </div>
     <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -74,7 +55,7 @@
   <a href="reservation.html">Réservation</a>
   <a href="contact.html">Contact</a>
   <a href="visite3d.html">Visite 3D</a>
-  <div class="mob-footer">+216 21 006 219 &nbsp;·&nbsp; El Jem</div>
+  <div class="mob-footer">+216 26 740 303 &nbsp;·&nbsp; El Jem</div>
 </div>
 
 <div class="section">
@@ -85,8 +66,8 @@
   <div class="reservation-form reveal">
     <div id="form-container">
       <div class="form-grid">
-        <input type="text" id="f_name" placeholder="Nom complet" class="form-input">
-        <input type="tel" id="f_phone" placeholder="Téléphone" class="form-input">
+        <input type="text" id="f_name" placeholder="Nom complet" data-i18n="res.name" class="form-input">
+        <input type="tel" id="f_phone" placeholder="Téléphone" data-i18n="res.phone" class="form-input">
         <input type="date" id="f_date" class="form-input">
         <select id="f_guests" class="form-input">
           <option>1–2 personnes</option>
@@ -94,17 +75,18 @@
           <option>5–8 personnes</option>
           <option>8+ personnes</option>
         </select>
-        <textarea id="f_note" rows="3" placeholder="Note spéciale (allergie, demande...)" class="form-input"></textarea>
-        <button class="btn-primary" onclick="submitForm()" style="width:100%; justify-content:center; padding:15px;">
+        <textarea id="f_note" rows="3" placeholder="Note spéciale" data-i18n="res.note" class="form-input"></textarea>
+        <div id="form-error" style="color:var(--red,#e74c3c);font-size:.85rem;margin-bottom:8px;display:none;"></div>
+        <button class="btn-primary" id="res-submit-btn" style="width:100%; justify-content:center; padding:15px;">
           Confirmer la réservation <i class="fas fa-arrow-right"></i>
         </button>
       </div>
     </div>
     <div id="form-success" class="form-success">
       <i class="fas fa-check-circle"></i>
-      <h3>Réservation confirmée !</h3>
-      <p>Vous avez été redirigé vers WhatsApp.</p>
-      <button class="btn-secondary" onclick="resetForm()" style="margin-top:20px;">Nouvelle réservation</button>
+      <h3 data-i18n="res.success.title">Réservation envoyée !</h3>
+      <p data-i18n="res.success.sub">Nous vous contacterons très vite pour confirmer.</p>
+      <button class="btn-secondary" id="res-new-btn" data-i18n="res.new" style="margin-top:20px;">Nouvelle réservation</button>
     </div>
   </div>
 </div>
@@ -116,7 +98,7 @@
       <p>Café & Restaurant premium à El Jem, Tunisie.</p>
       <div class="social-links">
                 <a href="https://www.facebook.com/profile.php?id=61586520484625" target="_blank" rel="noopener" class="social-link" aria-label="Facebook Big Mahmoud"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://wa.me/21621006219" target="_blank" rel="noopener" class="social-link" aria-label="WhatsApp Big Mahmoud"><i class="fab fa-whatsapp"></i></a>
+        <a data-wa href="https://wa.me/21621006219" target="_blank" rel="noopener" class="social-link" aria-label="WhatsApp Big Mahmoud"><i class="fab fa-whatsapp"></i></a>
 <a href="https://www.instagram.com/big__mahmoud/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
       </div>
     </div>
@@ -133,13 +115,10 @@
 </footer>
 
 <button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut"><i class="fas fa-chevron-up"></i></button>
-<a href="https://wa.me/21621006219" id="wa-float" aria-label="WhatsApp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+<a data-wa href="https://wa.me/21621006219" id="wa-float" aria-label="WhatsApp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
 
-<script src="script.js"></script>
 
-<!-- ══ FIREBASE RESERVATIONS ══ -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
 <script>
   // Evite double init si déjà initialisé
   if (!firebase.apps.length) {
@@ -199,5 +178,6 @@
     });
   };
 </script>
+<script type="module" src="/src/reservation.ts"></script>
 </body>
 </html>

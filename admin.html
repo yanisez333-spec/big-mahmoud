@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Manager — Big Mahmoud</title>
   <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -13,34 +14,21 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --gold:    #D4AF37;
-      --gold2:   #F0D060;
-      --dark:    #0A0A0B;
-      --dark2:   #111114;
-      --dark3:   #1A1A1F;
-      --dark4:   #242429;
-      --border:  rgba(212,175,55,0.18);
-      --text:    #E8E4DC;
-      --muted:   #7A7870;
-      --green:   #2ECC71;
-      --orange:  #F39C12;
-      --red:     #E74C3C;
-      --blue:    #3498DB;
-      --radius:  12px;
+      --gold:   #D4AF37; --gold2:  #F0D060;
+      --dark:   #0A0A0B; --dark2:  #111114; --dark3: #1A1A1F; --dark4: #242429;
+      --border: rgba(212,175,55,0.18);
+      --text:   #E8E4DC; --muted: #7A7870;
+      --green:  #2ECC71; --orange: #F39C12; --red: #E74C3C; --blue: #3498DB;
+      --radius: 12px;
       --font-display: 'Playfair Display', serif;
       --font-body:    'DM Sans', sans-serif;
       --font-mono:    'DM Mono', monospace;
     }
 
     html, body { height: 100%; }
-    body {
-      font-family: var(--font-body);
-      background: var(--dark);
-      color: var(--text);
-      overflow-x: hidden;
-    }
+    body { font-family: var(--font-body); background: var(--dark); color: var(--text); overflow-x: hidden; }
 
-    /* ══ LOGIN SCREEN ══ */
+    /* ══ LOGIN ══ */
     #login-screen {
       position: fixed; inset: 0; z-index: 1000;
       display: flex; align-items: center; justify-content: center;
@@ -50,497 +38,403 @@
         repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(212,175,55,0.03) 39px, rgba(212,175,55,0.03) 40px),
         repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(212,175,55,0.03) 39px, rgba(212,175,55,0.03) 40px);
     }
-
     .login-card {
-      width: 100%; max-width: 400px;
-      padding: 52px 44px;
-      background: var(--dark2);
-      border: 1px solid var(--border);
-      border-radius: 20px;
+      width: 100%; max-width: 400px; padding: 52px 44px;
+      background: var(--dark2); border: 1px solid var(--border); border-radius: 20px;
       box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,175,55,0.05) inset;
-      text-align: center;
-      animation: slideUp .5s cubic-bezier(.16,1,.3,1) both;
+      text-align: center; animation: slideUp .5s cubic-bezier(.16,1,.3,1) both;
     }
-
-    @keyframes slideUp {
-      from { opacity:0; transform: translateY(30px); }
-      to   { opacity:1; transform: translateY(0); }
-    }
-
-    .login-logo {
-      font-family: var(--font-display);
-      font-size: 1.9rem;
-      font-weight: 900;
-      color: var(--gold);
-      letter-spacing: .12em;
-      margin-bottom: 4px;
-    }
-    .login-sub {
-      font-size: .7rem;
-      letter-spacing: .35em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 40px;
-    }
-    .login-icon {
-      width: 64px; height: 64px;
-      background: rgba(212,175,55,0.08);
-      border: 1px solid var(--border);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 32px;
-      font-size: 1.5rem; color: var(--gold);
-    }
-
-    .login-input-wrap {
-      position: relative; margin-bottom: 16px;
-    }
-    .login-input-wrap i {
-      position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
-      color: var(--muted); font-size: .9rem; pointer-events: none;
-    }
-    .login-input {
-      width: 100%; padding: 16px 18px 16px 46px;
-      background: var(--dark3);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      color: var(--text);
-      font-family: var(--font-mono); font-size: 1rem;
-      letter-spacing: .1em;
-      outline: none;
-      transition: border-color .2s, box-shadow .2s;
-    }
-    .login-input:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(212,175,55,0.12);
-    }
-
-    .login-btn {
-      width: 100%; padding: 16px;
-      background: var(--gold);
-      color: #000;
-      font-family: var(--font-body); font-size: .9rem; font-weight: 600;
-      letter-spacing: .08em; text-transform: uppercase;
-      border: none; border-radius: var(--radius);
-      cursor: pointer;
-      transition: background .2s, transform .1s;
-      margin-top: 8px;
-    }
-    .login-btn:hover  { background: var(--gold2); }
-    .login-btn:active { transform: scale(.98); }
-
-    .login-error {
-      color: var(--red); font-size: .82rem;
-      margin-top: 12px; min-height: 20px;
-      display: flex; align-items: center; justify-content: center; gap: 6px;
-    }
+    @keyframes slideUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+    .login-logo  { font-family: var(--font-display); font-size: 1.9rem; font-weight: 900; color: var(--gold); letter-spacing: .12em; margin-bottom: 4px; }
+    .login-sub   { font-size: .7rem; letter-spacing: .35em; text-transform: uppercase; color: var(--muted); margin-bottom: 40px; }
+    .login-icon  { width:64px;height:64px;background:rgba(212,175,55,0.08);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 32px;font-size:1.5rem;color:var(--gold); }
+    .login-input-wrap { position: relative; margin-bottom: 16px; }
+    .login-input-wrap i { position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.9rem;pointer-events:none; }
+    .login-input { width:100%;padding:16px 18px 16px 46px;background:var(--dark3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:var(--font-mono);font-size:1rem;letter-spacing:.1em;outline:none;transition:border-color .2s,box-shadow .2s; }
+    .login-input:focus { border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,0.12); }
+    .login-btn { width:100%;padding:16px;background:var(--gold);color:#000;font-family:var(--font-body);font-size:.9rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border:none;border-radius:var(--radius);cursor:pointer;transition:background .2s,transform .1s;margin-top:8px; }
+    .login-btn:hover  { background:var(--gold2); }
+    .login-btn:active { transform:scale(.98); }
+    .login-error { color:var(--red);font-size:.82rem;margin-top:12px;min-height:20px;display:flex;align-items:center;justify-content:center;gap:6px; }
 
     /* ══ APP ══ */
     #app { display: none; min-height: 100vh; }
 
-    /* Top bar */
-    .topbar {
-      position: sticky; top: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 32px;
-      height: 64px;
-      background: rgba(10,10,11,0.9);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-    }
-    .topbar-logo {
-      font-family: var(--font-display);
-      font-size: 1.2rem; font-weight: 900;
-      color: var(--gold); letter-spacing: .1em;
-    }
-    .topbar-right { display: flex; align-items: center; gap: 20px; }
-    .topbar-time {
-      font-family: var(--font-mono); font-size: .8rem; color: var(--muted);
-    }
-    .logout-btn {
-      display: flex; align-items: center; gap: 8px;
-      padding: 8px 16px;
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--muted); font-size: .8rem;
-      cursor: pointer; transition: all .2s;
-    }
-    .logout-btn:hover { border-color: var(--red); color: var(--red); }
+    /* Topbar */
+    .topbar { position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:64px;background:rgba(10,10,11,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border); }
+    .topbar-logo { font-family:var(--font-display);font-size:1.2rem;font-weight:900;color:var(--gold);letter-spacing:.1em; }
+    .topbar-right { display:flex;align-items:center;gap:12px; }
+    .topbar-time { font-family:var(--font-mono);font-size:.8rem;color:var(--muted); }
+    .topbar-btn { display:flex;align-items:center;gap:8px;padding:8px 16px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:.8rem;cursor:pointer;transition:all .2s;text-decoration:none; }
+    .topbar-btn:hover { border-color:var(--gold);color:var(--gold); }
+    .topbar-btn.danger:hover { border-color:var(--red);color:var(--red); }
+
+    /* Admin tabs */
+    .admin-tabs { display:flex;gap:4px;padding:20px 32px 0;border-bottom:1px solid var(--border);background:var(--dark2); }
+    .admin-tab-btn { padding:12px 24px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:var(--font-body);font-size:.88rem;font-weight:500;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px; }
+    .admin-tab-btn:hover { color:var(--text); }
+    .admin-tab-btn.active { color:var(--gold);border-bottom-color:var(--gold); }
+    .admin-tab-content { display:none; }
+    .admin-tab-content.active { display:block; }
 
     /* Main layout */
-    .main { padding: 32px; max-width: 1400px; margin: 0 auto; }
+    .main { padding:32px;max-width:1400px;margin:0 auto; }
 
-    /* Stats row */
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px; margin-bottom: 32px;
-    }
-    .stat-card {
-      background: var(--dark2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px 20px;
-      position: relative; overflow: hidden;
-      animation: fadeIn .4s ease both;
-    }
-    .stat-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    }
-    .stat-card.gold::before   { background: var(--gold); }
-    .stat-card.green::before  { background: var(--green); }
-    .stat-card.orange::before { background: var(--orange); }
-    .stat-card.red::before    { background: var(--red); }
-    .stat-card.blue::before   { background: var(--blue); }
+    /* Stats */
+    .stats-row { display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:32px; }
+    .stat-card { background:var(--dark2);border:1px solid var(--border);border-radius:var(--radius);padding:24px 20px;position:relative;overflow:hidden; }
+    .stat-card::before { content:'';position:absolute;top:0;left:0;right:0;height:2px; }
+    .stat-card.gold::before   { background:var(--gold); }
+    .stat-card.green::before  { background:var(--green); }
+    .stat-card.orange::before { background:var(--orange); }
+    .stat-card.red::before    { background:var(--red); }
+    .stat-card.blue::before   { background:var(--blue); }
+    .stat-label { font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:10px; }
+    .stat-val   { font-family:var(--font-display);font-size:2.2rem;font-weight:900;color:var(--text);line-height:1; }
+    .stat-icon  { position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:1.6rem;opacity:.08; }
 
-    .stat-label {
-      font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 10px;
-    }
-    .stat-val {
-      font-family: var(--font-display);
-      font-size: 2.2rem; font-weight: 900;
-      color: var(--text); line-height: 1;
-    }
-    .stat-icon {
-      position: absolute; right: 16px; top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.6rem; opacity: .08;
-    }
-
-    /* Section title */
-    .section-head {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
-    }
-    .section-title {
-      font-family: var(--font-display);
-      font-size: 1.4rem; font-weight: 700; color: var(--text);
-    }
-    .section-title span { color: var(--gold); }
+    /* Section header */
+    .section-head { display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px; }
+    .section-title { font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--text); }
+    .section-title span { color:var(--gold); }
 
     /* Filters */
-    .filters {
-      display: flex; gap: 8px; flex-wrap: wrap;
-    }
-    .filter-btn {
-      padding: 7px 16px;
-      background: var(--dark3); border: 1px solid var(--border);
-      border-radius: 50px; color: var(--muted);
-      font-size: .78rem; font-weight: 500; letter-spacing: .05em;
-      cursor: pointer; transition: all .2s;
-    }
-    .filter-btn.active, .filter-btn:hover {
-      background: rgba(212,175,55,0.12);
-      border-color: var(--gold); color: var(--gold);
-    }
+    .filters { display:flex;gap:8px;flex-wrap:wrap; }
+    .filter-btn { padding:7px 16px;background:var(--dark3);border:1px solid var(--border);border-radius:50px;color:var(--muted);font-size:.78rem;font-weight:500;letter-spacing:.05em;cursor:pointer;transition:all .2s; }
+    .filter-btn.active, .filter-btn:hover { background:rgba(212,175,55,0.12);border-color:var(--gold);color:var(--gold); }
 
     /* Search */
-    .search-wrap {
-      position: relative;
-    }
-    .search-wrap i {
-      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-      color: var(--muted); font-size: .85rem; pointer-events: none;
-    }
-    .search-input {
-      padding: 9px 14px 9px 38px;
-      background: var(--dark3); border: 1px solid var(--border);
-      border-radius: 8px; color: var(--text);
-      font-family: var(--font-body); font-size: .85rem;
-      outline: none; width: 220px;
-      transition: border-color .2s;
-    }
-    .search-input:focus { border-color: var(--gold); }
+    .search-wrap { position:relative; }
+    .search-wrap i { position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem;pointer-events:none; }
+    .search-input { padding:9px 14px 9px 38px;background:var(--dark3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font-body);font-size:.85rem;outline:none;width:220px;transition:border-color .2s; }
+    .search-input:focus { border-color:var(--gold); }
 
     /* Table */
-    .table-wrap {
-      background: var(--dark2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-    .res-table {
-      width: 100%; border-collapse: collapse;
-    }
-    .res-table th {
-      padding: 14px 20px;
-      background: var(--dark3);
-      font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
-      color: var(--muted); font-weight: 500;
-      text-align: left; border-bottom: 1px solid var(--border);
-    }
-    .res-table td {
-      padding: 16px 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      font-size: .88rem; vertical-align: middle;
-    }
-    .res-table tr:last-child td { border-bottom: none; }
-    .res-table tr:hover td { background: rgba(212,175,55,0.03); }
+    .table-wrap { background:var(--dark2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden; }
+    .res-table { width:100%;border-collapse:collapse; }
+    .res-table th { padding:14px 20px;background:var(--dark3);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:500;text-align:left;border-bottom:1px solid var(--border); }
+    .res-table td { padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:.88rem;vertical-align:middle; }
+    .res-table tr:last-child td { border-bottom:none; }
+    .res-table tr:hover td { background:rgba(212,175,55,0.03); }
+    .res-name  { font-weight:600;color:var(--text); }
+    .res-phone { font-family:var(--font-mono);font-size:.82rem;color:var(--muted); }
+    .res-date  { color:var(--text); }
+    .res-guests { display:inline-flex;align-items:center;gap:5px;background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.15);color:var(--gold);border-radius:6px;padding:3px 10px;font-size:.78rem;font-weight:500; }
+    .res-note  { max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted);font-size:.82rem; }
+    .res-time  { font-family:var(--font-mono);font-size:.75rem;color:var(--muted); }
+    .badge { display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:50px;font-size:.73rem;font-weight:600;letter-spacing:.05em; }
+    .badge::before { content:'';width:6px;height:6px;border-radius:50%; }
+    .badge-pending   { background:rgba(243,156,18,.12);color:var(--orange); }
+    .badge-pending::before   { background:var(--orange); }
+    .badge-confirmed { background:rgba(46,204,113,.12);color:var(--green); }
+    .badge-confirmed::before { background:var(--green); }
+    .badge-cancelled { background:rgba(231,76,60,.12);color:var(--red); }
+    .badge-cancelled::before { background:var(--red); }
+    .actions { display:flex;gap:6px; }
+    .action-btn { width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:var(--muted);transition:all .15s; }
+    .action-btn.confirm:hover { background:rgba(46,204,113,.15);border-color:var(--green);color:var(--green); }
+    .action-btn.cancel:hover  { background:rgba(231,76,60,.15);border-color:var(--red);color:var(--red); }
+    .action-btn.del:hover     { background:rgba(231,76,60,.15);border-color:var(--red);color:var(--red); }
+    .empty-state  { text-align:center;padding:80px 20px;color:var(--muted); }
+    .empty-state i { font-size:3rem;margin-bottom:16px;opacity:.3;display:block; }
+    .loading-state { text-align:center;padding:60px;color:var(--muted);font-size:.9rem; }
+    .spinner { width:32px;height:32px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px; }
+    @keyframes spin { to { transform:rotate(360deg); } }
 
-    .res-name { font-weight: 600; color: var(--text); }
-    .res-phone {
-      font-family: var(--font-mono); font-size: .82rem; color: var(--muted);
-    }
-    .res-date { color: var(--text); }
-    .res-guests {
-      display: inline-flex; align-items: center; gap: 5px;
-      background: rgba(212,175,55,0.08);
-      border: 1px solid rgba(212,175,55,0.15);
-      color: var(--gold); border-radius: 6px;
-      padding: 3px 10px; font-size: .78rem; font-weight: 500;
-    }
-    .res-note {
-      max-width: 200px; overflow: hidden;
-      text-overflow: ellipsis; white-space: nowrap;
-      color: var(--muted); font-size: .82rem;
-    }
-    .res-time {
-      font-family: var(--font-mono); font-size: .75rem; color: var(--muted);
-    }
+    /* ══ CMS PANEL ══ */
+    .cms-grid { display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px; }
+    @media(max-width:768px) { .cms-grid { grid-template-columns:1fr; } }
+    .cms-card { background:var(--dark2);border:1px solid var(--border);border-radius:var(--radius);padding:28px; }
+    .cms-card-title { font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:8px; }
+    .cms-field { margin-bottom:16px; }
+    .cms-label { font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;display:block; }
+    .cms-input { width:100%;padding:12px 16px;background:var(--dark3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font-body);font-size:.9rem;outline:none;transition:border-color .2s; }
+    .cms-input:focus { border-color:var(--gold); }
+    .cms-save-btn { display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:var(--gold);color:#000;font-weight:600;font-size:.88rem;border:none;border-radius:8px;cursor:pointer;transition:background .2s;letter-spacing:.06em; }
+    .cms-save-btn:hover { background:var(--gold2); }
+    .cms-save-btn:disabled { opacity:.5;cursor:not-allowed; }
 
-    /* Status badge */
-    .badge {
-      display: inline-flex; align-items: center; gap: 5px;
-      padding: 4px 12px; border-radius: 50px;
-      font-size: .73rem; font-weight: 600; letter-spacing: .05em;
-    }
-    .badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; }
-    .badge-pending  { background: rgba(243,156,18,.12); color: var(--orange); }
-    .badge-pending::before  { background: var(--orange); }
-    .badge-confirmed { background: rgba(46,204,113,.12); color: var(--green); }
-    .badge-confirmed::before { background: var(--green); }
-    .badge-cancelled { background: rgba(231,76,60,.12); color: var(--red); }
-    .badge-cancelled::before { background: var(--red); }
+    /* Section order */
+    .section-item { display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--dark3);border:1px solid var(--border);border-radius:8px;margin-bottom:8px;transition:background .15s; }
+    .section-item:hover { background:var(--dark4); }
+    .section-drag-handle { color:var(--muted);cursor:grab; }
+    .section-label { flex:1;font-size:.9rem;color:var(--text); }
+    .section-arrows { display:flex;flex-direction:column;gap:2px; }
+    .arrow-btn { width:24px;height:24px;background:transparent;border:1px solid var(--border);border-radius:4px;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.65rem;transition:all .15s; }
+    .arrow-btn:hover { border-color:var(--gold);color:var(--gold); }
 
-    /* Actions */
-    .actions { display: flex; gap: 6px; }
-    .action-btn {
-      width: 32px; height: 32px;
-      border-radius: 8px; border: 1px solid var(--border);
-      background: transparent; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .8rem; color: var(--muted);
-      transition: all .15s;
-    }
-    .action-btn.confirm:hover { background: rgba(46,204,113,.15); border-color: var(--green); color: var(--green); }
-    .action-btn.cancel:hover  { background: rgba(231,76,60,.15);  border-color: var(--red);   color: var(--red); }
-    .action-btn.wa:hover      { background: rgba(37,211,102,.15); border-color: #25D366;       color: #25D366; }
-    .action-btn.del:hover     { background: rgba(231,76,60,.15);  border-color: var(--red);   color: var(--red); }
+    /* ══ PASSWORD PANEL ══ */
+    .pwd-card { background:var(--dark2);border:1px solid var(--border);border-radius:var(--radius);padding:32px;max-width:480px; }
+    .pwd-title { font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:24px;display:flex;align-items:center;gap:10px; }
+    .pwd-field { margin-bottom:16px; }
+    .pwd-label { font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;display:block; }
+    .pwd-input-wrap { position:relative; }
+    .pwd-input-wrap i { position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;font-size:.85rem; }
+    .pwd-input { width:100%;padding:13px 14px 13px 40px;background:var(--dark3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font-mono);font-size:.95rem;letter-spacing:.08em;outline:none;transition:border-color .2s; }
+    .pwd-input:focus { border-color:var(--gold); }
+    .pwd-error { color:var(--red);font-size:.82rem;margin-bottom:12px;min-height:18px;display:flex;align-items:center;gap:6px; }
+    .pwd-save-btn { display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:var(--gold);color:#000;font-weight:600;font-size:.88rem;border:none;border-radius:8px;cursor:pointer;transition:background .2s;margin-top:8px; }
+    .pwd-save-btn:hover { background:var(--gold2); }
+    .pwd-save-btn:disabled { opacity:.5;cursor:not-allowed; }
+    .pwd-hint { font-size:.78rem;color:var(--muted);margin-top:16px;line-height:1.6; }
 
-    /* Empty state */
-    .empty-state {
-      text-align: center; padding: 80px 20px; color: var(--muted);
-    }
-    .empty-state i { font-size: 3rem; margin-bottom: 16px; opacity: .3; display: block; }
-    .empty-state p { font-size: .95rem; }
+    /* ══ TOAST ══ */
+    .toast-wrap { position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px; }
+    .toast { padding:14px 20px;background:var(--dark3);border:1px solid var(--border);border-radius:10px;font-size:.85rem;display:flex;align-items:center;gap:10px;box-shadow:0 10px 40px rgba(0,0,0,0.4);animation:toastIn .3s ease both;max-width:320px; }
+    .toast.success { border-color:var(--green); }
+    .toast.success i { color:var(--green); }
+    .toast.error   { border-color:var(--red); }
+    .toast.error i { color:var(--red); }
+    @keyframes toastIn { from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);} }
 
-    /* Loading */
-    .loading-state {
-      text-align: center; padding: 60px;
-      color: var(--muted); font-size: .9rem;
-    }
-    .spinner {
-      width: 32px; height: 32px;
-      border: 2px solid var(--border);
-      border-top-color: var(--gold);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 16px;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* Toast */
-    .toast-wrap {
-      position: fixed; bottom: 24px; right: 24px; z-index: 9999;
-      display: flex; flex-direction: column; gap: 8px;
-    }
-    .toast {
-      padding: 14px 20px;
-      background: var(--dark3); border: 1px solid var(--border);
-      border-radius: 10px; font-size: .85rem;
-      display: flex; align-items: center; gap: 10px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-      animation: toastIn .3s ease both;
-      max-width: 320px;
-    }
-    .toast.success { border-color: var(--green); }
-    .toast.success i { color: var(--green); }
-    .toast.error   { border-color: var(--red); }
-    .toast.error i { color: var(--red); }
-    @keyframes toastIn {
-      from { opacity:0; transform: translateX(20px); }
-      to   { opacity:1; transform: translateX(0); }
-    }
-
-    /* Modal */
-    .modal-overlay {
-      position: fixed; inset: 0; z-index: 500;
-      background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
-      display: flex; align-items: center; justify-content: center;
-      padding: 20px;
-      opacity: 0; pointer-events: none; transition: opacity .2s;
-    }
-    .modal-overlay.open { opacity: 1; pointer-events: all; }
-    .modal {
-      background: var(--dark2); border: 1px solid var(--border);
-      border-radius: 16px; padding: 32px; width: 100%; max-width: 480px;
-      transform: scale(.95); transition: transform .2s;
-    }
-    .modal-overlay.open .modal { transform: scale(1); }
-    .modal-title {
-      font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 20px;
-      color: var(--text);
-    }
-    .modal-actions { display: flex; gap: 10px; margin-top: 24px; justify-content: flex-end; }
-    .modal-info { font-size: .9rem; color: var(--muted); line-height: 1.6; }
-    .modal-info strong { color: var(--text); }
-
-    @keyframes fadeIn {
-      from { opacity:0; transform: translateY(10px); }
-      to   { opacity:1; transform: translateY(0); }
-    }
+    /* ══ MODAL ══ */
+    .modal-overlay { position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s; }
+    .modal-overlay.open { opacity:1;pointer-events:all; }
+    .modal { background:var(--dark2);border:1px solid var(--border);border-radius:16px;padding:32px;width:100%;max-width:480px;transform:scale(.95);transition:transform .2s; }
+    .modal-overlay.open .modal { transform:scale(1); }
+    .modal-title   { font-family:var(--font-display);font-size:1.2rem;margin-bottom:20px;color:var(--text); }
+    .modal-actions { display:flex;gap:10px;margin-top:24px;justify-content:flex-end; }
+    .modal-info    { font-size:.9rem;color:var(--muted);line-height:1.6; }
+    .modal-info strong { color:var(--text); }
 
     /* Responsive */
-    @media (max-width: 768px) {
-      .topbar { padding: 0 16px; }
-      .main   { padding: 16px; }
-      .res-table th:nth-child(5),
-      .res-table td:nth-child(5),
-      .res-table th:nth-child(6),
-      .res-table td:nth-child(6) { display: none; }
-      .search-input { width: 160px; }
+    @media(max-width:768px) {
+      .topbar { padding:0 16px; }
+      .main   { padding:16px; }
+      .admin-tabs { padding:16px 16px 0; overflow-x:auto; }
+      .admin-tab-btn { padding:10px 16px;font-size:.8rem;white-space:nowrap; }
+      .res-table th:nth-child(5),.res-table td:nth-child(5),
+      .res-table th:nth-child(6),.res-table td:nth-child(6) { display:none; }
+      .search-input { width:160px; }
     }
   </style>
 </head>
 <body>
 
-<!-- ══ LOGIN SCRIPT — pur JS, aucune dépendance ══ -->
-<script>
-  const MANAGER_PASSWORD = "bigmahmoud2026";
-
-  function tryLogin() {
-    const val = document.getElementById("pwd-input").value;
-    const err = document.getElementById("login-error");
-    if (val === MANAGER_PASSWORD) {
-      document.getElementById("login-screen").style.display = "none";
-      document.getElementById("app").style.display = "block";
-      loadFirebase();
-    } else {
-      err.innerHTML = '<i class="fas fa-circle-exclamation"></i> Mot de passe incorrect';
-      document.getElementById("pwd-input").value = "";
-      document.getElementById("pwd-input").focus();
-      setTimeout(() => err.innerHTML = "", 3000);
-    }
-  }
-
-  function logout() {
-    document.getElementById("app").style.display = "none";
-    document.getElementById("login-screen").style.display = "flex";
-    document.getElementById("pwd-input").value = "";
-  }
-</script>
-
-
-<!-- ══════════════════ LOGIN ══════════════════ -->
+<!-- ══ LOGIN ══ -->
 <div id="login-screen">
   <div class="login-card">
     <div class="login-logo">BIG MAHMOUD</div>
     <div class="login-sub">Espace Manager</div>
     <div class="login-icon"><i class="fas fa-shield-halved"></i></div>
     <div class="login-input-wrap">
-      <i class="fas fa-lock"></i>
-      <input class="login-input" id="pwd-input" type="password"
-             placeholder="Mot de passe"
-             onkeydown="if(event.key==='Enter') tryLogin()">
+      <i class="fas fa-envelope"></i>
+      <input class="login-input" id="email-input" type="email" placeholder="Email">
     </div>
-    <button class="login-btn" onclick="tryLogin()">
+    <div class="login-input-wrap">
+      <i class="fas fa-lock"></i>
+      <input class="login-input" id="pwd-input" type="password" placeholder="Mot de passe">
+    </div>
+    <button class="login-btn" id="login-btn-el">
       <i class="fas fa-sign-in-alt"></i> &nbsp; Accéder
     </button>
     <div class="login-error" id="login-error"></div>
   </div>
 </div>
 
-<!-- ══════════════════ APP ══════════════════ -->
+<!-- ══ APP ══ -->
 <div id="app">
 
+  <!-- Topbar -->
   <div class="topbar">
     <div class="topbar-logo">BIG MAHMOUD <span style="color:var(--muted);font-size:.7rem;letter-spacing:.2em;font-family:var(--font-body);margin-left:8px;">MANAGER</span></div>
     <div class="topbar-right">
       <div class="topbar-time" id="clock"></div>
-      <button class="logout-btn" onclick="logout()">
+      <span style="font-size:.75rem;color:var(--muted);font-family:var(--font-mono);" id="user-email"></span>
+      <a class="topbar-btn" id="back-public-btn" href="index.html" title="Retour au site public">
+        <i class="fas fa-globe"></i> Site public
+      </a>
+      <button class="topbar-btn danger" id="logout-btn">
         <i class="fas fa-right-from-bracket"></i> Déconnexion
       </button>
     </div>
   </div>
 
-  <div class="main">
-
-    <!-- Stats -->
-    <div class="stats-row" id="stats-row">
-      <div class="stat-card gold">
-        <div class="stat-label">Total réservations</div>
-        <div class="stat-val" id="stat-total">—</div>
-        <i class="fas fa-calendar-check stat-icon"></i>
-      </div>
-      <div class="stat-card orange">
-        <div class="stat-label">En attente</div>
-        <div class="stat-val" id="stat-pending">—</div>
-        <i class="fas fa-hourglass-half stat-icon"></i>
-      </div>
-      <div class="stat-card green">
-        <div class="stat-label">Confirmées</div>
-        <div class="stat-val" id="stat-confirmed">—</div>
-        <i class="fas fa-circle-check stat-icon"></i>
-      </div>
-      <div class="stat-card red">
-        <div class="stat-label">Annulées</div>
-        <div class="stat-val" id="stat-cancelled">—</div>
-        <i class="fas fa-circle-xmark stat-icon"></i>
-      </div>
-      <div class="stat-card blue">
-        <div class="stat-label">Aujourd'hui</div>
-        <div class="stat-val" id="stat-today">—</div>
-        <i class="fas fa-star stat-icon"></i>
-      </div>
-    </div>
-
-    <!-- Reservations -->
-    <div class="section-head">
-      <div class="section-title">Réservations <span>· Live</span></div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-        <div class="search-wrap">
-          <i class="fas fa-search"></i>
-          <input class="search-input" id="search-input" placeholder="Rechercher..." oninput="renderTable()">
-        </div>
-        <div class="filters">
-          <button class="filter-btn active" onclick="setFilter('all', this)">Tous</button>
-          <button class="filter-btn" onclick="setFilter('pending', this)">En attente</button>
-          <button class="filter-btn" onclick="setFilter('confirmed', this)">Confirmées</button>
-          <button class="filter-btn" onclick="setFilter('cancelled', this)">Annulées</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="table-wrap">
-      <div id="table-inner">
-        <div class="loading-state"><div class="spinner"></div>Chargement des réservations...</div>
-      </div>
-    </div>
-
+  <!-- Admin Tabs -->
+  <div class="admin-tabs">
+    <button class="admin-tab-btn active" data-tab="reservations">
+      <i class="fas fa-calendar-check"></i> Réservations
+    </button>
+    <button class="admin-tab-btn" data-tab="cms">
+      <i class="fas fa-pen-to-square"></i> Contenu du site
+    </button>
+    <button class="admin-tab-btn" data-tab="password">
+      <i class="fas fa-key"></i> Mot de passe
+    </button>
   </div>
+
+  <!-- ── TAB: RESERVATIONS ── -->
+  <div id="tab-reservations" class="admin-tab-content active">
+    <div class="main">
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-card gold">
+          <div class="stat-label">Total réservations</div>
+          <div class="stat-val" id="stat-total">—</div>
+          <i class="fas fa-calendar-check stat-icon"></i>
+        </div>
+        <div class="stat-card orange">
+          <div class="stat-label">En attente</div>
+          <div class="stat-val" id="stat-pending">—</div>
+          <i class="fas fa-hourglass-half stat-icon"></i>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-label">Confirmées</div>
+          <div class="stat-val" id="stat-confirmed">—</div>
+          <i class="fas fa-circle-check stat-icon"></i>
+        </div>
+        <div class="stat-card red">
+          <div class="stat-label">Annulées</div>
+          <div class="stat-val" id="stat-cancelled">—</div>
+          <i class="fas fa-circle-xmark stat-icon"></i>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-label">Aujourd'hui</div>
+          <div class="stat-val" id="stat-today">—</div>
+          <i class="fas fa-star stat-icon"></i>
+        </div>
+      </div>
+
+      <!-- Reservations table -->
+      <div class="section-head">
+        <div class="section-title">Réservations <span>· Live</span></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+          <div class="search-wrap">
+            <i class="fas fa-search"></i>
+            <input class="search-input" id="search-input" placeholder="Rechercher...">
+          </div>
+          <div class="filters">
+            <button class="filter-btn active" data-filter="all">Tous</button>
+            <button class="filter-btn" data-filter="pending">En attente</button>
+            <button class="filter-btn" data-filter="confirmed">Confirmées</button>
+            <button class="filter-btn" data-filter="cancelled">Annulées</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <div id="table-inner">
+          <div class="loading-state"><div class="spinner"></div>Chargement des réservations...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB: CMS ── -->
+  <div id="tab-cms" class="admin-tab-content">
+    <div class="main">
+      <div class="section-head">
+        <div class="section-title">Contenu du site <span>· Éditer</span></div>
+        <button class="cms-save-btn" id="cms-save-btn">
+          <i class="fas fa-save"></i> Sauvegarder
+        </button>
+      </div>
+
+      <div class="cms-grid">
+        <!-- Hero -->
+        <div class="cms-card">
+          <div class="cms-card-title"><i class="fas fa-house"></i> Hero — Page d'accueil</div>
+
+          <div class="cms-field">
+            <label class="cms-label" for="cms-hero-title">Titre principal</label>
+            <input class="cms-input" id="cms-hero-title" type="text" placeholder="BIG MAHMOUD">
+          </div>
+          <div class="cms-field">
+            <label class="cms-label" for="cms-hero-sub">Sous-titre</label>
+            <input class="cms-input" id="cms-hero-sub" type="text" placeholder="Café · Restaurant · Chicha">
+          </div>
+          <div class="cms-field">
+            <label class="cms-label" for="cms-hero-hours">Horaires (hero)</label>
+            <input class="cms-input" id="cms-hero-hours" type="text" placeholder="Ouvert 24h/24 · 7j/7">
+          </div>
+          <div class="cms-field">
+            <label class="cms-label" for="cms-hero-image">Image hero (URL)</label>
+            <input class="cms-input" id="cms-hero-image" type="url" placeholder="https://...">
+          </div>
+        </div>
+
+        <!-- Infos générales -->
+        <div class="cms-card">
+          <div class="cms-card-title"><i class="fas fa-circle-info"></i> Infos générales</div>
+
+          <div class="cms-field">
+            <label class="cms-label" for="cms-phone">Téléphone affiché</label>
+            <input class="cms-input" id="cms-phone" type="text" placeholder="+216 26 740 303">
+          </div>
+
+          <div class="cms-field" style="margin-top:24px;">
+            <label class="cms-label">Ordre des sections (accueil)</label>
+            <p style="font-size:.78rem;color:var(--muted);margin-bottom:12px;">Utilise les flèches pour réorganiser les sections de la page d'accueil.</p>
+            <div id="section-order"></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;margin-top:8px;">
+        <button class="cms-save-btn" id="cms-save-btn-bottom">
+          <i class="fas fa-save"></i> Sauvegarder les modifications
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB: PASSWORD ── -->
+  <div id="tab-password" class="admin-tab-content">
+    <div class="main">
+      <div class="section-head">
+        <div class="section-title">Mot de passe <span>· Modifier</span></div>
+      </div>
+
+      <div class="pwd-card">
+        <div class="pwd-title"><i class="fas fa-shield-halved" style="color:var(--gold)"></i> Changer le mot de passe</div>
+
+        <div class="pwd-field">
+          <label class="pwd-label" for="pwd-current">Mot de passe actuel</label>
+          <div class="pwd-input-wrap">
+            <i class="fas fa-lock"></i>
+            <input class="pwd-input" id="pwd-current" type="password" placeholder="••••••••">
+          </div>
+        </div>
+        <div class="pwd-field">
+          <label class="pwd-label" for="pwd-new">Nouveau mot de passe</label>
+          <div class="pwd-input-wrap">
+            <i class="fas fa-key"></i>
+            <input class="pwd-input" id="pwd-new" type="password" placeholder="••••••••">
+          </div>
+        </div>
+        <div class="pwd-field">
+          <label class="pwd-label" for="pwd-confirm">Confirmer le nouveau mot de passe</label>
+          <div class="pwd-input-wrap">
+            <i class="fas fa-key"></i>
+            <input class="pwd-input" id="pwd-confirm" type="password" placeholder="••••••••">
+          </div>
+        </div>
+
+        <div class="pwd-error" id="pwd-error"></div>
+
+        <button class="pwd-save-btn" id="pwd-save-btn">
+          <i class="fas fa-key"></i> Changer le mot de passe
+        </button>
+
+        <p class="pwd-hint">
+          <i class="fas fa-circle-info" style="color:var(--gold)"></i>
+          Le nouveau mot de passe doit faire au moins 6 caractères.<br>
+          Tu devras entrer ton mot de passe actuel pour confirmer.
+        </p>
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<!-- Modal confirmation -->
+<!-- Modal -->
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal">
     <div class="modal-title" id="modal-title">Confirmer l'action</div>
-    <div class="modal-info" id="modal-body"></div>
+    <div class="modal-info"  id="modal-body"></div>
     <div class="modal-actions">
-      <button class="filter-btn" onclick="closeModal()" style="padding:10px 20px;">Annuler</button>
-      <button class="login-btn" id="modal-confirm-btn" style="width:auto;padding:10px 24px;">Confirmer</button>
+      <button class="filter-btn" id="modal-cancel-btn" style="padding:10px 20px;">Annuler</button>
+      <button class="login-btn"  id="modal-confirm-btn" style="width:auto;padding:10px 24px;">Confirmer</button>
     </div>
   </div>
 </div>
@@ -548,212 +442,6 @@
 <!-- Toasts -->
 <div class="toast-wrap" id="toast-wrap"></div>
 
-<!-- ══ FIREBASE COMPAT ══ -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-<script>
-  let db = null;
-  let allReservations = [];
-  let currentFilter   = "all";
-  let pendingAction   = null;
-
-  function loadFirebase() {
-    if (!firebase.apps.length) {
-      firebase.initializeApp({
-        apiKey:            "AIzaSyBxAIJaqfigz9X2vZ_x8fJuK2RD8wgQ9-A",
-        authDomain:        "bigmahmoud-b5659.firebaseapp.com",
-        projectId:         "bigmahmoud-b5659",
-        storageBucket:     "bigmahmoud-b5659.firebasestorage.app",
-        messagingSenderId: "88480505979",
-        appId:             "1:88480505979:web:41e35cc41dbfa1a834c2de"
-      });
-    }
-    db = firebase.firestore();
-    startClock();
-    loadReservations();
-  }
-
-  // dummy so app doesn't crash before login
-
-  // ── CLOCK ──
-  function startClock() {
-    const el = document.getElementById("clock");
-    const tick = () => {
-      el.textContent = new Date().toLocaleString("fr-FR", {
-        weekday: "short", day: "2-digit", month: "short",
-        hour: "2-digit", minute: "2-digit", second: "2-digit"
-      });
-    };
-    tick(); setInterval(tick, 1000);
-  }
-
-  // ── LOAD RESERVATIONS ──
-  function loadReservations() {
-    const q = db.collection("reservations").orderBy("createdAt", "desc");
-    q.onSnapshot((snap) => {
-      allReservations = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-      updateStats();
-      renderTable();
-    }, (err) => {
-      console.error(err);
-      document.getElementById("table-inner").innerHTML =
-        `<div class="empty-state"><i class="fas fa-wifi-slash"></i><p>Erreur de connexion Firebase.<br>Vérifie les règles Firestore.</p></div>`;
-    });
-  }
-
-  // ── STATS ──
-  function updateStats() {
-    const todayStr = new Date().toISOString().slice(0,10);
-    document.getElementById("stat-total").textContent     = allReservations.length;
-    document.getElementById("stat-pending").textContent   = allReservations.filter(r => r.status === "pending").length;
-    document.getElementById("stat-confirmed").textContent = allReservations.filter(r => r.status === "confirmed").length;
-    document.getElementById("stat-cancelled").textContent = allReservations.filter(r => r.status === "cancelled").length;
-    document.getElementById("stat-today").textContent     = allReservations.filter(r => r.date === todayStr).length;
-  }
-
-  // ── FILTER ──
-  window.setFilter = (f, btn) => {
-    currentFilter = f;
-    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    renderTable();
-  };
-
-  // ── RENDER TABLE ──
-  window.renderTable = () => {
-    const q   = document.getElementById("search-input").value.toLowerCase();
-    let data  = allReservations;
-
-    if (currentFilter !== "all") data = data.filter(r => r.status === currentFilter);
-    if (q) data = data.filter(r =>
-      (r.name  || "").toLowerCase().includes(q) ||
-      (r.phone || "").toLowerCase().includes(q) ||
-      (r.date  || "").includes(q)
-    );
-
-    if (!data.length) {
-      document.getElementById("table-inner").innerHTML =
-        `<div class="empty-state"><i class="fas fa-calendar-xmark"></i><p>Aucune réservation trouvée.</p></div>`;
-      return;
-    }
-
-    const rows = data.map(r => {
-      const badge = r.status === "confirmed" ? "badge-confirmed"
-                  : r.status === "cancelled" ? "badge-cancelled"
-                  : "badge-pending";
-      const label = r.status === "confirmed" ? "Confirmée"
-                  : r.status === "cancelled" ? "Annulée"
-                  : "En attente";
-      const ts = r.createdAt?.toDate
-               ? r.createdAt.toDate().toLocaleString("fr-FR", {day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})
-               : "—";
-      const note = r.note ? `<span class="res-note" title="${r.note}">${r.note}</span>` : '<span style="color:var(--muted);font-size:.78rem">—</span>';
-
-      return `<tr>
-        <td>
-          <div class="res-name">${r.name || "—"}</div>
-          <div class="res-phone">${r.phone || "—"}</div>
-        </td>
-        <td><span class="res-date">${formatDate(r.date)}</span></td>
-        <td><span class="res-guests"><i class="fas fa-users" style="font-size:.7rem"></i>${r.guests || "—"}</span></td>
-        <td>${note}</td>
-        <td><span class="badge ${badge}">${label}</span></td>
-        <td><span class="res-time">${ts}</span></td>
-        <td>
-          <div class="actions">
-            ${r.status !== "confirmed" ? `<button class="action-btn confirm" title="Confirmer" onclick="confirmRes('${r.id}','${r.name}')"><i class="fas fa-check"></i></button>` : ""}
-            ${r.status !== "cancelled" ? `<button class="action-btn cancel"  title="Annuler"   onclick="cancelRes('${r.id}','${r.name}')"><i class="fas fa-xmark"></i></button>` : ""}
-            ${r.phone ? `<button class="action-btn wa" title="WhatsApp" onclick="waContact('${r.phone}','${r.name}')"><i class="fab fa-whatsapp"></i></button>` : ""}
-            <button class="action-btn del" title="Supprimer" onclick="deleteRes('${r.id}','${r.name}')"><i class="fas fa-trash"></i></button>
-          </div>
-        </td>
-      </tr>`;
-    }).join("");
-
-    document.getElementById("table-inner").innerHTML = `
-      <table class="res-table">
-        <thead>
-          <tr>
-            <th>Client</th>
-            <th>Date</th>
-            <th>Personnes</th>
-            <th>Note</th>
-            <th>Statut</th>
-            <th>Reçue le</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>${rows}</tbody>
-      </table>`;
-  };
-
-  function formatDate(d) {
-    if (!d) return "—";
-    const [y,m,day] = d.split("-");
-    return `${day}/${m}/${y}`;
-  }
-
-  // ── ACTIONS ──
-  window.confirmRes = (id, name) => openModal(
-    "Confirmer la réservation",
-    `Confirmer la réservation de <strong>${name}</strong> ?`,
-    async () => {
-      await db.collection("reservations").doc(id).update({ status: "confirmed" });
-      toast("Réservation confirmée ✓", "success");
-    }
-  );
-
-  window.cancelRes = (id, name) => openModal(
-    "Annuler la réservation",
-    `Annuler la réservation de <strong>${name}</strong> ?`,
-    async () => {
-      await db.collection("reservations").doc(id).update({ status: "cancelled" });
-      toast("Réservation annulée", "error");
-    }
-  );
-
-  window.deleteRes = (id, name) => openModal(
-    "Supprimer la réservation",
-    `Supprimer définitivement la réservation de <strong>${name}</strong> ? Cette action est irréversible.`,
-    async () => {
-      await db.collection("reservations").doc(id).delete();
-      toast("Réservation supprimée", "error");
-    }
-  );
-
-  window.waContact = (phone, name) => {
-    const msg = encodeURIComponent(`Bonjour ${name}, votre réservation chez Big Mahmoud est confirmée ! Nous vous attendons.`);
-    window.open(`https://wa.me/${phone.replace(/\D/g,"")}?text=${msg}`, "_blank");
-  };
-
-  // ── MODAL ──
-  function openModal(title, body, action) {
-    document.getElementById("modal-title").innerHTML = title;
-    document.getElementById("modal-body").innerHTML  = body;
-    document.getElementById("modal-overlay").classList.add("open");
-    pendingAction = action;
-  }
-  window.closeModal = () => {
-    document.getElementById("modal-overlay").classList.remove("open");
-    pendingAction = null;
-  };
-  document.getElementById("modal-confirm-btn").onclick = async () => {
-    if (pendingAction) { await pendingAction(); closeModal(); }
-  };
-  document.getElementById("modal-overlay").onclick = (e) => {
-    if (e.target === e.currentTarget) closeModal();
-  };
-
-  // ── TOAST ──
-  function toast(msg, type = "success") {
-    const el = document.createElement("div");
-    el.className = `toast ${type}`;
-    el.innerHTML = `<i class="fas fa-${type === "success" ? "circle-check" : "circle-xmark"}"></i> ${msg}`;
-    document.getElementById("toast-wrap").appendChild(el);
-    setTimeout(() => el.remove(), 3500);
-  }
-  window.toast = toast;
-
-</script>
+<script type="module" src="/src/admin.ts"></script>
 </body>
 </html>
